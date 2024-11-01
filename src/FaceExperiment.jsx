@@ -121,7 +121,7 @@ const Screen2 = ({ onButtonClick, online }) => (
         {[...Array(5)].map((_, index) => (
           <img
             key={index}
-            src="/RADIATE_BMP/RADIATE_450_BW_BMP/_RADIATE_BW_5/WM09/WM09_AC.bmp"
+            src="/WM09_AC.bmp"
             alt="Face"
             style={{
               width: '150px',
@@ -237,7 +237,7 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC-${index}`} // Ensure unique keys
-            src="/RADIATE_BMP/RADIATE_450_BW_BMP/_RADIATE_BW_5/WM09/WM09_AC.bmp" // Left images
+            src="/WM09_AC.bmp" // Left images
             alt="Face"
             style={{
               width: '150px',
@@ -248,7 +248,7 @@ const Screen3 = ({ onButtonClick }) => (
         
         <img
           key="HC" // Ensure unique key for middle image
-          src="/RADIATE_BMP/RADIATE_450_BW_BMP/_RADIATE_BW_5/WM09/WM09_HC.bmp" // Middle image
+          src="/WM09_HC.bmp" // Middle image
           alt="Middle Face"
           style={{
             width: '150px',
@@ -259,7 +259,7 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC2-${index}`} // Ensure unique keys
-            src="/RADIATE_BMP/RADIATE_450_BW_BMP/_RADIATE_BW_5/WM09/WM09_AC.bmp" // Right images
+            src="/WM09_AC.bmp" // Right images
             alt="Face"
             style={{
               width: '150px',
