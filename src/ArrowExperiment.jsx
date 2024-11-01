@@ -660,12 +660,13 @@ const Screen6 = ({ onButtonClick }) => (
     </Container>
   </Box>
 )
-
+//Flanker Screen 7- Cross
 const Screen7 = ({ onButtonClick }) => (
   <Box
     sx={{
       display: 'flex',
       justifyContent: 'center',
+      alignItems: 'center',
       backgroundColor: 'black',
       width: '100vw',
       height: '100vh',
@@ -675,29 +676,33 @@ const Screen7 = ({ onButtonClick }) => (
     <Container
       maxWidth="md"
       sx={{
+        display: 'flex',
+        flexDirection: 'column',
+        justifyContent: 'center',
+        alignItems: 'center',
         border: '2px solid black',
         backgroundColor: 'black',
-        justifyContent: 'center',
-        height: '60vh',
+        height: '100%',
+        width: '100%',
+        padding: { xs: 2, sm: 3, md: 4 },
       }}
-      style={{ marginTop: '120px', marginBottom: '10px' }}
     >
       <Typography
-        sx={{ fontSize: '200px', color: 'white', justifyContent: 'center' }}
-        style={{
-          alignItems: 'center',
-          marginRight: '100px',
-          marginLeft: '350px',
-          marginTop: '50px',
+        sx={{
+          fontSize: { xs: '80px', sm: '120px', md: '200px' },
+          color: 'white',
+          textAlign: 'center',
+          mb: { xs: 2, sm: 3, md: 4 },
+          lineHeight: 1,
         }}
       >
         +
       </Typography>
-
     </Container>
   </Box>
 );
-// Flanker Screen 3- Blank(Screen 8)
+
+// Flanker Screen 8- Blank
 const Screen8 = ({ onButtonClick }) => (
   <Box
     sx={{
@@ -758,6 +763,7 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) =
           color: 'white',
           textAlign: 'center',
           mb: { xs: 2, sm: 3, md: 4 },
+          lineHeight: 1,
         }}
       >
         {currentPattern1}
@@ -1042,6 +1048,7 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
   const [tooSlow, setTooSlow] = useState(false);
   const[takeBreak, setTakeBreak] = useState(false);
   const [skipped, setSkipped] = useState([]);
+  const [keyPressed, setKeyPressed] = useState(false);
 
   
   //loop through CSV patterns
@@ -1170,8 +1177,11 @@ useEffect(() => {
       const handleKeyDown = (event) => {
           const { key } = event;
           //Experiment Block
-          if(!tooSlow) {
-            if ((screen === 9) && (currentPatternIndex >= 8) && (key === 'Q' || key === 'P' || key === 'q' || key === 'p')) {
+          //only process keydown if no key is currently pressed
+          if(!tooSlow && !keyPressed && (key === 'Q' || key === 'P' || key === 'q' || key === 'p')) {
+            //since key has been assigned, key has been pressed
+            setKeyPressed(true)
+            if ((screen === 9) && (currentPatternIndex >= 8)) {
                 const endTime = Date.now();
                 const duration = endTime - startTime;
                 console.log(startTime);
@@ -1195,19 +1205,22 @@ useEffect(() => {
         }
       };
 
+      //keyup/released key handler to reset keyPressed state
+      const handleKeyUp = (event) => {
+        const { key } = event;
+        if(key === 'Q' || key === 'P' || key === 'q' || key === 'p') {
+          //mark key as released
+          setKeyPressed(false);
+        }
+      }
+
       document.addEventListener('keydown', handleKeyDown);
+      document.addEventListener('keyup', handleKeyUp);
       return () => {
           document.removeEventListener('keydown', handleKeyDown);
+          document.removeEventListener('keyup', handleKeyUp);
       };
-  }, [screen, stopwatch, tooSlow]);
-  
-  // //stores startTime when hit patterns
-  // useEffect(() => {
-  //     if (screen === 9 && currentPatternIndex == patterns.length/2 - 1) {
-  //         setStartTime(Date.now());
-  //         console.log(startTime);
-  //     }
-  // }, [screen]);
+  }, [screen, stopwatch, tooSlow, keyPressed]);
   
   
   //creates new response object with screen number, response, and time
