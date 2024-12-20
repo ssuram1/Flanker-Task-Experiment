@@ -81,7 +81,15 @@ const Screen2 = ({ onButtonClick, online }) => (
       }}
     >
       <Typography sx={{ fontSize: '50px', color: 'white' }}>Q</Typography>
-      <Typography sx={{ fontSize: '50px', color: 'white' }}>&lt;</Typography>
+      <img 
+        src="happy_face.png"
+        alt="happy face"
+        style={{
+          width: '50px',
+          height: '50px',
+          marginTop: '10px'
+        }}
+      />
     </Button>
 
 
@@ -99,7 +107,15 @@ const Screen2 = ({ onButtonClick, online }) => (
       }}
     >
       <Typography sx={{ fontSize: '50px', color: 'white' }}>P</Typography>
-      <Typography sx={{ fontSize: '50px', color: 'white' }}>&gt;</Typography>
+      <img 
+        src="angry_face.png"
+        alt="angry face"
+        style={{
+          width: '50px',
+          height: '50px',
+          marginTop: '10px'
+        }}
+      />
     </Button>
 
     {/* Container in Center */}
@@ -197,7 +213,15 @@ const Screen3 = ({ onButtonClick }) => (
       }}
     >
       <Typography sx={{ fontSize: '50px', color: 'white' }}>Q</Typography>
-      <Typography sx={{ fontSize: '50px', color: 'white' }}>&lt;</Typography>
+      <img 
+        src="happy_face.png"
+        alt="happy face"
+        style={{
+          width: '50px',
+          height: '50px',
+          marginTop: '10px'
+        }}
+      />
     </Button>
 
     {/* Right Button */}
@@ -215,7 +239,15 @@ const Screen3 = ({ onButtonClick }) => (
       }}
     >
       <Typography sx={{ fontSize: '50px', color: 'white' }}>P</Typography>
-      <Typography sx={{ fontSize: '50px', color: 'white' }}>&gt;</Typography>
+      <img 
+        src="angry_face.png"
+        alt="angry face"
+        style={{
+          width: '50px',
+          height: '50px',
+          marginTop: '10px'
+        }}
+      />
     </Button>
 
     {/* Centered Container */}
@@ -342,13 +374,25 @@ const Screen4 = ({ onButtonClick, online }) => (
               sm: 'translateX(-10%)',
               md: 'translateX(-75%)'
             },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '10px'
           }}
         >
-          <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white' }}>
+          <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white', lineHeight: 1 }}>
             Q
-            <br />
-            &lt;
           </Typography>
+          <img 
+          src="happy_face.png"
+          alt="happy face"
+          style={{
+            width: '50px',
+            height: '50px',
+            marginTop: '10px'
+          }}
+          />
         </Button>
 
         <Button
@@ -364,13 +408,25 @@ const Screen4 = ({ onButtonClick, online }) => (
               sm: 'translateX(10%)',
               md: 'translateX(75%)'
             },
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
+            padding: '10px'
           }}
         >
-          <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white' }}>
+          <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white', lineHeight: 1 }}>
             P
-            <br />
-            &gt;
           </Typography>
+          <img 
+            src="angry_face.png"
+            alt="angry face"
+            style={{
+              width: '50px',
+              height: '50px',
+              marginTop: '10px'
+            }}
+          />
         </Button>
       </Box>
 
@@ -384,15 +440,27 @@ const Screen4 = ({ onButtonClick, online }) => (
         >
           In the example below, the left [Q]-key is correct:
         </Typography>
-        <Typography
+        <Box
           sx={{
-            color: "white",
-            fontSize: { xs: "20px", sm: "28px", md: "32px" },
-            textAlign: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 2
           }}
         >
-          &lt; &lt; &lt; &lt; &lt;
-        </Typography>
+          {Array(5).fill(null).map((_, index) => (
+            <img
+              key={index}
+              src="/WM09_AC.bmp"
+              alt="Left arrow"
+              style={{
+                width: '50px',
+                height: '50px',
+                transform: 'rotate(0deg)'
+              }}
+            />
+          ))}
+        </Box>
         <Typography
           sx={{
             color: "white",
@@ -411,15 +479,27 @@ const Screen4 = ({ onButtonClick, online }) => (
         >
           In the example below, the right [P]-key is correct:
         </Typography>
-        <Typography
+        <Box
           sx={{
-            color: "white",
-            fontSize: { xs: "20px", sm: "28px", md: "32px" },
-            textAlign: 'center',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            gap: 2
           }}
         >
-          &lt; &lt; &gt; &lt; &lt;
-        </Typography>
+          {[...Array(5)].map((_, index) => (
+            <img
+              key={index}
+              src={index === 2 ? "/WM09_HC.bmp" : "/WM09_AC.bmp"}
+              alt={index === 2 ? "Right arrow" : "Left arrow"}
+              style={{
+                width: '50px',
+                height: '50px',
+                transform: index === 2 ? 'rotate(0deg)' : 'rotate(0deg)' 
+              }}
+            />
+          ))}
+        </Box>
         <Typography
           sx={{
             color: "white",
@@ -506,13 +586,25 @@ const Screen5 = ({ onButtonClick, online }) => (
             sm: 'translateX(-10%)',
             md: 'translateX(-75%)'
           },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10px'
         }}
       >
-        <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white' }}>
+        <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white',  lineHeight: 1 }}>
           Q
-          <br />
-          &lt;
         </Typography>
+        <img 
+            src="happy_face.png"
+            alt="happy face"
+            style={{
+              width: '50px',
+              height: '50px',
+              marginTop: '10px'
+            }}
+          />
       </Button>
 
       <Button
@@ -528,13 +620,25 @@ const Screen5 = ({ onButtonClick, online }) => (
             sm: 'translateX(10%)',
             md: 'translateX(75%)'
           },
+          display: 'flex',
+          flexDirection: 'column',
+          alignItems: 'center',
+          justifyContent: 'center',
+          padding: '10px'
         }}
       >
-        <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white' }}>
+        <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white',  lineHeight: 1 }}>
           P
-          <br />
-          &gt;
         </Typography>
+        <img 
+            src="angry_face.png"
+            alt="angry face"
+            style={{
+              width: '50px',
+              height: '50px',
+              marginTop: '10px'
+            }}
+          />
       </Button>
 
       <Box sx={{
@@ -604,8 +708,9 @@ const Screen6 = ({ onButtonClick }) => (
       sx={{
         border: '2px solid black',
         backgroundColor: 'black',
-        justifyContent: 'center',
         height: '60vh',
+        display: 'flex', 
+        justifyContent: 'space-around', 
       }}
       style={{ marginTop: '120px', marginBottom: '10px' }}
     >
@@ -618,18 +723,25 @@ const Screen6 = ({ onButtonClick }) => (
           height: '300px',
           width: '200px',
           alignItems: 'center',
-          marginBottom: '20px',
           marginTop: '30px',
-          marginLeft: '90px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}
       >
         <Typography sx={{ fontSize: '100px', color: 'white' }}>
           Q
-          <br />
-          &lt;
         </Typography>
+        <img 
+          src="happy_face.png"
+          alt="happy face"
+          style={{
+            width: '50px',
+            height: '50px',
+            marginTop: '10px'
+          }}
+        />
       </Button>
-
       <Button
         sx={{
           border: '2px solid white',
@@ -639,21 +751,30 @@ const Screen6 = ({ onButtonClick }) => (
           height: '300px',
           width: '210px',
           alignItems: 'center',
-          marginBottom: '20px',
           marginTop: '30px',
-          marginLeft: '250px',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center'
         }}
       >
         <Typography sx={{ fontSize: '100px', color: 'white' }}>
           P
-          <br />
-          &gt;
         </Typography>
+        <img 
+          src="angry_face.png"
+          alt="angry face"
+          style={{
+            width: '50px',
+            height: '50px',
+            marginTop: '10px'
+          }}
+        />
       </Button>
     </Container>
   </Box>
-)
+);
 
+//Flanker Screen 2- Cross(Screen 7)
 const Screen7 = ({ onButtonClick }) => (
   <Box
     sx={{
@@ -690,6 +811,7 @@ const Screen7 = ({ onButtonClick }) => (
     </Container>
   </Box>
 );
+
 // Flanker Screen 3- Blank(Screen 8)
 const Screen8 = ({ onButtonClick }) => (
   <Box
@@ -723,7 +845,6 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) =
     sx={{
       display: 'flex',
       justifyContent: 'center',
-      alignItems: 'center',
       backgroundColor: 'black',
       width: '100vw',
       height: '100vh',
@@ -734,27 +855,46 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) =
     <Container
       maxWidth="md"
       sx={{
-        display: 'flex',
-        flexDirection: 'column',
-        justifyContent: 'center',
-        alignItems: 'center',
         border: '2px solid black',
         backgroundColor: 'black',
-        height: '100%',
-        width: '100%',
-        padding: { xs: 2, sm: 3, md: 4 },
+        height: '60vh',
+        position: 'relative',
+        marginTop: '120px',
+        marginBottom: '10px',
       }}
     >
-      <Typography
+      <Box
         sx={{
-          fontSize: { xs: '80px', sm: '120px', md: '150px' },
-          color: 'white',
-          textAlign: 'center',
-          mb: { xs: 2, sm: 3, md: 4 },
+          position: 'absolute',
+          left: '50%',
+          top: '50%',
+          transform: 'translate(-50%, -50%)',
+          display: 'flex',
+          justifyContent: 'center',
+          alignItems: 'center',
+          gap: { xs: '10px', sm: '15px', md: '20px' },
         }}
       >
-        {currentPattern1}
-      </Typography>
+        {Array.isArray(currentPattern1) && currentPattern1.map((imageUrl, index) => (
+          <img
+            key={index}
+            src={imageUrl}
+            alt={`Pattern element ${index + 1}`}
+            style={{
+              width: 'auto',
+              height: 'auto',
+              maxHeight: '150px',
+              transform: 'rotate(0deg)',
+              '@media (max-width:600px)': {
+                maxHeight: '80px',
+              },
+              '@media (min-width:601px) and (max-width:960px)': {
+                maxHeight: '120px',
+              },
+            }}
+          />
+        ))}
+      </Box>
       
       {tooSlow && (
         <Typography
@@ -762,7 +902,10 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) =
             fontSize: { xs: '24px', sm: '36px', md: '50px' },
             color: 'red',
             textAlign: 'center',
-            mt: { xs: 2, sm: 3, md: 4 },
+            position: 'absolute',
+            bottom: '20%',
+            left: '50%',
+            transform: 'translateX(-50%)',
           }}
         >
           Too Slow! Press Space to continue.
@@ -1020,7 +1163,7 @@ const Screen12 = () => (
 
 
 //Rotate Screens
-const ArrowExperiment = ({ online, experiment, PID }) => {
+const FaceExperiment = ({ online, experiment, PID }) => {
   const [screen, setScreen] = useState(1);
   const [delay, setDelay] = useState(1000);
   const [inputValue, setInputValue] = useState('');
@@ -1033,56 +1176,84 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
   const [currentPatternIndex, setCurrentPatternIndex] = useState(0);
   const [congruency, setCongruency] = useState(0);
   const [tooSlow, setTooSlow] = useState(false);
-  const[takeBreak, setTakeBreak] = useState(false);
+  const [takeBreak, setTakeBreak] = useState(false);
   const [skipped, setSkipped] = useState([]);
 
-  
-  //loop through CSV patterns
+  // Helper function to create image pattern from URLs
+  const createImagePattern = (flankerUrl, targetUrl) => {
+    return [
+      flankerUrl,  // left flanker
+      flankerUrl,  // left flanker
+      targetUrl,   // target
+      flankerUrl,  // right flanker
+      flankerUrl   // right flanker
+    ];
+  };
+
   useEffect(() => {
     const fetchData = async () => {
       try {
-        //Determine which csv file to load based on experiment type
-        const csvFile = experiment === 'A1' ? '/flanker_arrows_A1.csv' : '/flanker_arrows_A2.csv';
-        console.log("Experiment:", experiment)
+        const csvFile = '/flanker_images_mini.csv'; 
+        console.log("Experiment:", experiment);
         const response = await axios.get(csvFile);
         console.log("Raw CSV data:", response.data);
-          Papa.parse(response.data, {
-            header: true,
-            //execute complete callback when parsing is completed and take results as arg
-            complete: (results) => {
-              console.log("Parsed data:", results.data);
-              //store pattern in parsedPatterns
-              const parsedPatterns = results.data
-              .filter(row => row.flanker && row.target) 
-              .map(row => {
-                  return `${row.flanker} ${row.flanker} ${row.target} ${row.flanker} ${row.flanker}`;
-              });
-              const correctAnswer = results.data
-              .filter(row => row.correct) 
-              //makes entire correct column uppercase
+
+        Papa.parse(response.data, {
+          header: true,
+          complete: (results) => {
+            console.log("Parsed data:", results.data);
+            
+            // Parse the patterns using target and flanker URLs directly
+            const parsedPatterns = results.data
+              .filter(row => row.flanker && row.target)
+              .map(row => createImagePattern(row.flanker, row.target));
+
+            const correctAnswer = results.data
+              .filter(row => row.correct)
               .map(row => row.correct.toUpperCase());
-              //store congruency of each pattern
-              const congruent = results.data
+
+            const congruent = results.data
               .filter(row => row.congruency)
               .map(row => row.congruency);
-              console.log("Parsed patterns:", parsedPatterns);
-              setPatterns(parsedPatterns);
-              setCorrectAnswers(correctAnswer);
-              setCongruency(congruent);
-            },
+
+            console.log("Parsed patterns:", parsedPatterns);
+            setPatterns(parsedPatterns);
+            setCorrectAnswers(correctAnswer);
+            setCongruency(congruent);
+          },
           error: (error) => {
             console.error("Parsing error:", error);
           }
         });
-      }
-      catch (error) {
+      } catch (error) {
         console.error('Error fetching the CSV file:', error);
       }
-      }
-      fetchData();
+    };
+    fetchData();
   }, []);
 
-//check currentPatternIndex and patterns array
+  // Helper component to render the image pattern
+  const ImagePattern = ({ pattern }) => {
+    if (!pattern) return null;
+
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', gap: '8px' }}>
+        {pattern.map((imageUrl, index) => (
+          <img
+            key={index}
+            src={imageUrl}
+            alt={`Flanker ${index}`}
+            style={{
+              width: '50px',
+              height: '50px',
+              transform: 'rotate(0deg)'
+            }}
+          />
+        ))}
+      </div>
+    );
+  };
+
   useEffect(() => {
     console.log("Current Pattern Index:", currentPatternIndex);
     console.log(PID);
@@ -1412,4 +1583,4 @@ useEffect(() => {
   );
 }
 
-export default ArrowExperiment;
+export default FaceExperiment;
