@@ -51,7 +51,7 @@ const Screen1 = ({ onButtonClick, online }) => (
   </Box>
 );
 
-
+//Screen 2- Intro
 const Screen2 = ({ onButtonClick, online }) => (
   <Box
     sx={{
