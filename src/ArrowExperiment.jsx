@@ -786,7 +786,7 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) =
 );
 
 //Screen 10- Experiment Begins
-const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
+const Screen10 = ({ onStartClick, online }) => (
   <Box
     sx={{
       display: 'flex',
@@ -880,11 +880,9 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
             maxWidth: '90%', // Ensure text doesn't get too wide on larger screens
           }}
         >
-          The experiment will now begin.
+          The experiment will now start.
           <br />
-          Press Start to begin the Experiment Block.
-          <br />
-          If you would like additional practice, press Practice More.
+          Press the space bar to begin.
         </Typography>
 
         <Box
@@ -910,19 +908,6 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
             }}
           >
             Start
-          </Button>
-          <Button
-            onClick={onPracticeMoreClick}
-            sx={{
-              border: '2px solid white',
-              backgroundColor: 'grey',
-              color: 'white',
-              height: '50px',
-              width: { xs: '80%', sm: '150px' },
-              fontSize: { xs: '16px', sm: '18px' }, // Slightly increased font size
-            }}
-          >
-            Practice More
           </Button>
         </Box>
       </Box>
@@ -1337,14 +1322,6 @@ useEffect(() => {
     //how is this working
     switchScreen(10);
   };
-
-  //at screen 10, repeat practice round
-  const handlePracticeClick = () => {
-    // Logic to start the experiment block
-    console.log("Resetting practice block...");
-    setCurrentPatternIndex(0);
-    switchScreen(10);
-  };
   
 //downloads user responses
   const downloadResponses = () => {
@@ -1425,7 +1402,7 @@ useEffect(() => {
       {screen === 7 && <Screen7 />}
       {screen === 8 && <Screen8 />}
       {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow}/>}
-      {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick} />}
+      {screen === 10 && <Screen10 onStartClick={handleStartClick}/>}
       {screen === 11 && <Screen11 online = {online} PID = {PID} />}
       {screen === 12 && <Screen12 />}
     </div>
