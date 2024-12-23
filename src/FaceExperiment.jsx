@@ -1289,7 +1289,7 @@ useEffect(() => {
     slow = setTimeout(() => {
       setTooSlow(true);
       window.addEventListener('keydown', handleSpace); // add the event listener for user to hit space bar
-    }, 5000);
+    }, 2000);
   };
 
   //clean up
