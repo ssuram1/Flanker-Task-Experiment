@@ -471,8 +471,8 @@ const Screen4 = ({ onButtonClick, online }) => (
   </Box>
 );
 
-//Begin Practice Round
-const Screen5 = ({ onButtonClick, online }) => (
+//Begin Practice Round- Screen 5
+const Screen5 = ({ online }) => (
   <Box
     sx={{
       display: 'flex',
@@ -563,11 +563,11 @@ const Screen5 = ({ onButtonClick, online }) => (
           Remember: <br />
           {'\u00A0\u00A0\u00A0\u00A0'}Keep focusing on the fixation point in the center of the screen and answer as quickly as possible but avoid mistakes. <br />
           {'\u00A0\u00A0\u00A0\u00A0'}Place your index fingers on the [Q] and [P] keys. <br />
-          Press Start to begin the Practice Block.
+          Press the space bar to begin the Practice Block.
         </Typography>
       </Box>
-
-      <Box
+      
+      {/* <Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -576,8 +576,8 @@ const Screen5 = ({ onButtonClick, online }) => (
           mt: 'auto',
           mb: { xs: 2, sm: 3, md: 4 },
         }}
-      >
-        <Button
+      > */}
+        {/* <Button
           onClick={onButtonClick}
           sx={{
             border: '2px solid white',
@@ -587,9 +587,9 @@ const Screen5 = ({ onButtonClick, online }) => (
             width: '100px',
           }}
         >
-          Continue
-        </Button>
-      </Box>
+          Start
+        </Button> */}
+      {/* </Box> */}
     </Container>
   </Box>
 );
@@ -730,7 +730,7 @@ const Screen8 = ({ onButtonClick }) => (
 );
 
 //Flanker Task- Arrows Screen 9
-const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) => (
+const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow, tooFast }) => (
   <Box
     sx={{
       display: 'flex',
@@ -781,12 +781,24 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow }) =
           Too Slow! Press Space to continue.
         </Typography>
       )}
+       {tooFast && (
+        <Typography
+          sx={{
+            fontSize: { xs: '24px', sm: '36px', md: '50px' },
+            color: 'red',
+            textAlign: 'center',
+            mt: { xs: 2, sm: 3, md: 4 },
+          }}
+        >
+          Too Fast! Press Space to continue.
+        </Typography>
+      )}
     </Container>
   </Box>
 );
 
 //Screen 10- Experiment Begins
-const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
+const Screen10 = ({ online }) => (
   <Box
     sx={{
       display: 'flex',
@@ -882,9 +894,7 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
         >
           The experiment will now begin.
           <br />
-          Press Start to begin the Experiment Block.
-          <br />
-          If you would like additional practice, press Practice More.
+          Press the space bar to begin the Experiment Block.
         </Typography>
 
         <Box
@@ -898,7 +908,7 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
             mt: { xs: 2, sm: 3 },
           }}
         >
-          <Button
+          {/* <Button
             onClick={onStartClick}
             sx={{
               border: '2px solid white',
@@ -910,8 +920,8 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
             }}
           >
             Start
-          </Button>
-          <Button
+          </Button> */}
+          {/* <Button
             onClick={onPracticeMoreClick}
             sx={{
               border: '2px solid white',
@@ -923,7 +933,7 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
             }}
           >
             Practice More
-          </Button>
+          </Button> */}
         </Box>
       </Box>
     </Container>
@@ -1046,7 +1056,8 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
   const [currentPatternIndex, setCurrentPatternIndex] = useState(0);
   const [congruency, setCongruency] = useState(0);
   const [tooSlow, setTooSlow] = useState(false);
-  const[takeBreak, setTakeBreak] = useState(false);
+  const [tooFast, setTooFast] = useState(false);
+  const [takeBreak, setTakeBreak] = useState(false);
   const [skipped, setSkipped] = useState([]);
   const [keyPressed, setKeyPressed] = useState(false);
 
@@ -1056,8 +1067,13 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
     const fetchData = async () => {
       try {
         //Determine which csv file to load based on experiment type
-        const csvFile = experiment === 'A1' ? '/flanker_arrows_A1.csv' : '/flanker_arrows_A2.csv';
-        console.log("Experiment:", experiment)
+        let csvFile;
+        if (experiment === 'A1' || experiment === 'A2') {
+            csvFile = '/flanker_arrows_A1.csv';
+        } else {  // A3
+            csvFile = '/flanker_arrows_A3.csv';
+        }
+        console.log("Experiment:", experiment);
         const response = await axios.get(csvFile);
         console.log("Raw CSV data:", response.data);
           Papa.parse(response.data, {
@@ -1072,7 +1088,7 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
                   return `${row.flanker} ${row.flanker} ${row.target} ${row.flanker} ${row.flanker}`;
               });
               const correctAnswer = results.data
-              .filter(row => row.correct) 
+              .filter(row => row.correct)
               //makes entire correct column uppercase
               .map(row => row.correct.toUpperCase());
               //store congruency of each pattern
@@ -1103,53 +1119,99 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
     console.log("Current Pattern:", patterns[currentPatternIndex]);
   }, [currentPatternIndex, patterns]);
   
-//if takes more than 5 seconds, too slow message, and move pattern back
+//use to advance from screen 5 to practice round and screen 10 to experiment
 useEffect(() => {
-  let slow, move;
-  //after hit space bar, move pattern to end and remove event listener
-  const handleSpace = (event) => {
-    if (tooSlow == true && event.code === 'Space') {
+  if(screen === 5 || screen === 10) {
+    const handleStart = (event) => {
+      //press space to advance to patterns
+      if (event.code == 'Space') {
+        //move to experiment
+        if (screen === 10) {
+          setTargetScreen(11);
+        }  
+        //if A2, skip reminders
+        if (experiment === 'A2') {
+          setScreen(7);
+        }
+        //reminders screen
+        else {
+          setScreen(6);
+        }
+      }
+  }
+  
+  //event listener for keydown
+  window.addEventListener('keydown', handleStart);
+  //clean up event listener
+  return () => {
+    window.removeEventListener('keydown', handleStart);
+  };
+}
+}, [screen]);
+
+ //after hit space bar, move pattern to end and remove event listener
+ const handleSpace = (event) => {
+    console.log("handle space");
+    console.log(tooFast);
+    if ((tooFast || tooSlow) && event.code === 'Space') {
       movePatternToEnd();
       setCurrentPatternIndex(prevIndex => (prevIndex + 1));
+      console.log(currentPatternIndex);
       //if every 50 trials, set takebreak to true
       //change to 58
       if(currentPatternIndex % 58 == 0) {
           setTakeBreak(true);
       }
-      setTooSlow(false); // hides the too slow message
+      if(tooFast == true) {
+        // hides the too fast message 
+        setTooFast(false); 
+      }
+      else {
+        // hides the too slow message
+        setTooSlow(false);
+      }
       saveResponse(null, 0);
       console.log("added null trial");
       window.removeEventListener('keydown', handleSpace); // remove the event listener after handling the event
     }
-  };
+};
 
+//if takes more than 5 seconds, too slow message, and move pattern back
+useEffect(() => {
+  let slow, move;
   //stores start time for pattern
     if (screen === 9 && currentPatternIndex >= 8) {
       setStartTime(Date.now());
       console.log(startTime);
       
-    // waits 5 seconds, then says too slow and adds event listener for space bar
-    slow = setTimeout(() => {
-      setTooSlow(true);
-      window.addEventListener('keydown', handleSpace); // add the event listener for user to hit space bar
-    }, 5000);
+      //waits 5 seconds, then says too slow and adds event listener for space bar
+      slow = setTimeout(() => {
+        if (!tooFast) {
+          setTooSlow(true);
+          //add event listener for user to hit space bar
+          window.addEventListener('keydown', handleSpace); 
+        }
+      }, 5000);  
   };
+  
 
   //clean up
   return () => {
     clearTimeout(slow);
     clearTimeout(move);
-    window.removeEventListener('keydown', handleSpace); 
+    if(tooSlow) {
+      window.removeEventListener('keydown', handleSpace); 
+    }
   };
-
-  // renders every time screen and currentPatternIndex update
-}, [screen, currentPatternIndex, tooSlow]);
+  // renders every time following variables update
+}, [screen, currentPatternIndex, tooSlow, tooFast]);
 
 
 //moves pattern to end of list if participant takes longer than 5 sec
   const movePatternToEnd = () => {
       console.log("Moving Pattern to Back")
       //replace patterns with new rearranged array
+      //takes previous state(prevSkipped) as arg and returns new state as array with currPatternIndex
       setPatterns(prevPatterns => {
         //copy current array from arg prevPatterns
         const updatedPatterns = [...prevPatterns];
@@ -1157,50 +1219,88 @@ useEffect(() => {
         const currentPattern = updatedPatterns[currentPatternIndex];
         //adds pattern to end of array
         updatedPatterns.push(currentPattern);
-        //takes previous state(prevSkipped) as arg and returns new state as array with currPatternIndex
-        //update the skipped array
-        setSkipped(prevSkipped => {
-            const updatedSkipped = [...prevSkipped, currentPatternIndex];
-            console.log("Skipped array:", updatedSkipped);
-            return updatedSkipped;
-        });
         console.log("Patterns array:", updatedPatterns);
-        //returns new patterns array
-        return updatedPatterns;
+        return updatedPatterns
+      });
+      //replace correct answer patterns with new rearranged array
+      setCorrectAnswers(prevCorrectAnswers => {
+        //copy current array from arg prevCorrectAnswers
+        const updatedCorrectAnswers = [...prevCorrectAnswers];
+        //remove current answer from array and store answer
+        const currentCorrectAnswer = updatedCorrectAnswers[currentPatternIndex];
+        //adds correct answer to end of array
+        updatedCorrectAnswers.push(currentCorrectAnswer);
+        return updatedCorrectAnswers;
     });
-    setTooSlow(false);
-    setScreen(6);
+      //replace congruency for patterns with new rearranged array
+      setCongruency(prevCongruency => {
+        //copy current array of congruencies from arg prevCongruency
+        const updatedCongruency = [...prevCongruency];
+        //remove current congruency from array and store answer
+        const currentCongruency = updatedCongruency[currentPatternIndex];
+        //adds correct congruency to end of array
+        updatedCongruency.push(currentCongruency);
+        return updatedCongruency;
+    });
+      //update the skipped array
+      setSkipped(prevSkipped => {
+          const updatedSkipped = [...prevSkipped, currentPatternIndex];
+          console.log("Skipped array:", updatedSkipped);
+          return updatedSkipped;
+      });
+      setTooSlow(false);
+      if (experiment === 'A2') {
+        setScreen(7);
+      }
+      else {
+        setScreen(6);
+      }
   };
 
+   
   //stops timer when keydown for Q or P
   useEffect(() => {
       const handleKeyDown = (event) => {
-          const { key } = event;
+          //key = event.key
+          //extract key property from event
+          const { key } = event
           //Experiment Block
           //only process keydown if no key is currently pressed
-          if(!tooSlow && !keyPressed && (key === 'Q' || key === 'P' || key === 'q' || key === 'p')) {
+          if (!tooSlow && !tooFast && !keyPressed && (key === 'Q' || key === 'P' || key === 'q' || key === 'p')) {
             //since key has been assigned, key has been pressed
-            setKeyPressed(true)
+            setKeyPressed(true);
+            //if experiment trial
             if ((screen === 9) && (currentPatternIndex >= 8)) {
                 const endTime = Date.now();
                 const duration = endTime - startTime;
                 console.log(startTime);
                 console.log(endTime);
                 console.log("Response duration:", duration);
-                saveResponse(key.toUpperCase(), duration);
-                setCurrentPatternIndex(prevIndex => (prevIndex + 1));
-                 //if every 50 trials, set takebreak to true
-                 //change to 58
-                 if(currentPatternIndex % 58 == 0) {
-                  setTakeBreak(true);
+                //if too fast response, mark as incorrect and send to end of experiment
+                if (duration < 150) {
+                  setTooFast(true);
                 }
-                setInputValue(''); // Clear input field for the next pattern
+                else {
+                  saveResponse(key.toUpperCase(), duration);
+                  setCurrentPatternIndex(prevIndex => (prevIndex + 1));
+                  //if every 50 trials, set takebreak to true
+                  //change to 58 for full experiment
+                  if (currentPatternIndex % 58 == 0) {
+                    setTakeBreak(true);
+                  }
+                  setInputValue(''); // Clear input field for the next pattern
+              }
             }
             //Practice Block
             else if((screen === 9) && (key.toUpperCase() == correctAnswers[currentPatternIndex])) {
               setCurrentPatternIndex(prevIndex => (prevIndex + 1));
-              setInputValue(''); 
-              setScreen(6);
+              setInputValue('');
+              if (experiment === 'A2') {
+                setScreen(7);
+              }
+              else {
+                setScreen(6);
+              }
             }
         }
       };
@@ -1220,8 +1320,16 @@ useEffect(() => {
           document.removeEventListener('keydown', handleKeyDown);
           document.removeEventListener('keyup', handleKeyUp);
       };
-  }, [screen, stopwatch, tooSlow, keyPressed]);
-  
+  }, [screen, stopwatch, tooSlow, keyPressed, tooFast]);
+
+   //useEffect to listen for space when tooFast
+   useEffect(() => {
+    if (tooFast) {
+      window.addEventListener('keydown', handleSpace);
+      return () => window.removeEventListener('keydown', handleSpace);
+    }
+  }, [tooFast]);
+
   
   //creates new response object with screen number, response, and time
   const saveResponse = (response, duration) => {
@@ -1231,7 +1339,7 @@ useEffect(() => {
       let trialNumber = currentPatternIndex;
       //when currentPatternIndex is greater than total number of trials
       //change based on total number of trials!!!
-      if(currentPatternIndex >= 16 && skipped.length > 0) {
+      if(currentPatternIndex >= 208 && skipped.length > 0) {
           trialNumber = skipped.shift();
           console.log("Setting new Trial Number");
       }
@@ -1260,9 +1368,16 @@ useEffect(() => {
         setResponses(updatedResponses);
         console.log(newResponse);
         if (screen >= 9) {
+          if (experiment === 'A2') {
+            setScreen(7);
+          }
+          else {
             setScreen(6);
+          }
         }
   };
+
+ 
 
   //determines delay for screens 6-8 and initializes empty input for trials
   useEffect(() => {
@@ -1278,18 +1393,23 @@ useEffect(() => {
               console.log("setting screen 12");
               setScreen(12);
               setTimeout(() => {
-                setScreen(6); // Return to screen 8 after 10 seconds
+                if (experiment === 'A2') {
+                  setScreen(7);
+                }
+                else {
+                  setScreen(6);
+                }
                 setTakeBreak(false);
               }, 10000);
           }
-          else if (currentPatternIndex === patterns.length) {
-              setScreen(targetScreen); // Change screen to 11 after last pattern
+          else if (currentPatternIndex >= patterns.length) {
+              setScreen(11); // change screen to 11 after last pattern
           } 
           else if (targetScreen === 11) {
               setScreen(9); // Transition to screen 9 after patterns in screen 8
               setStartTime(Date.now());
               console.log(startTime);
-          } 
+          }
           else if (currentPatternIndex === 8) {
               setScreen(10); // Display screen 10 at halfway point of patterns in screen 8
           }
@@ -1324,27 +1444,33 @@ useEffect(() => {
       if (nextScreen >= 1 && nextScreen <= 5) {
           setScreen(screen + 1);
       } else if (screen === 9 || screen == 10) {
+        if (experiment === 'A2') {
+          setScreen(7);
+        }
+        else {
           setScreen(6);
-      } else {
+        }
+      } 
+      else {
           setScreen(screen + 1);
       }
   };
 
-  //at screen 10, begin experiment
-  const handleStartClick = () => {
-    console.log("Starting the experiment block...");
-    setTargetScreen(11);
-    //how is this working
-    switchScreen(10);
-  };
+  // //at screen 10, begin experiment
+  // const handleStartClick = () => {
+  //   console.log("Starting the experiment block...");
+  //   setTargetScreen(11);
+  //  
+  //   switchScreen(10);
+  // };
 
-  //at screen 10, repeat practice round
-  const handlePracticeClick = () => {
-    // Logic to start the experiment block
-    console.log("Resetting practice block...");
-    setCurrentPatternIndex(0);
-    switchScreen(10);
-  };
+  // //at screen 10, repeat practice round
+  // const handlePracticeClick = () => {
+  //   // Logic to start the experiment block
+  //   console.log("Resetting practice block...");
+  //   setCurrentPatternIndex(0);
+  //   switchScreen(10);
+  // };
   
 //downloads user responses
   const downloadResponses = () => {
@@ -1380,7 +1506,7 @@ useEffect(() => {
 
       // Determine which field to use based on the experiment
       let dataField = 'flanker_data_json';
-      if (experiment === 'F1' || experiment === 'A2') {
+      if (experiment === 'F1' || experiment === 'A3') {
           dataField = 'flanker_data_json_2';
       }
 
@@ -1398,7 +1524,7 @@ useEffect(() => {
               'record_id': userid,
               //change for faces as well
               [dataField]: data,
-              //make flanker_data_json_2 for F1 and A2
+              //make flanker_data_json_2 for F1 and A3
               'flanker_data_complete': '2'
           }]),
           returnContent: 'count',
@@ -1420,12 +1546,12 @@ useEffect(() => {
       {screen === 2 && <Screen2 onButtonClick={() => switchScreen(3)} />}
       {screen === 3 && <Screen3 onButtonClick={() => switchScreen(4)} />}
       {screen === 4 && <Screen4 onButtonClick={() => switchScreen(5)} />}
-      {screen === 5 && <Screen5 onButtonClick={() => switchScreen(6)} />}
+      {screen === 5 && <Screen5 />}
       {screen === 6 && <Screen6 />}
       {screen === 7 && <Screen7 />}
       {screen === 8 && <Screen8 />}
-      {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow}/>}
-      {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick} />}
+      {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow} tooFast={tooFast}/>}
+      {screen === 10 && <Screen10 />}
       {screen === 11 && <Screen11 online = {online} PID = {PID} />}
       {screen === 12 && <Screen12 />}
     </div>
