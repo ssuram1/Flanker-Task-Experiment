@@ -1116,48 +1116,70 @@ const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
 );
 
 //Screen 12- Break Screen every 50 trials
-const Screen12 = () => (
-  <Box
-    sx={{
-      display: 'flex',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'black',
-      width: '100vw',
-      height: '100vh',
-      border: 'none',
-      overflow: 'auto',
-    }}
-  >
-    <Container
-      maxWidth="md"
+
+const Screen12 = ({ onBreakEnd }) => {
+  const [countdown, setCountdown] = useState(10);
+
+  useEffect(() => {
+    if (countdown > 0) {
+      const timer = setTimeout(() => setCountdown(countdown - 1), 1000);
+      return () => clearTimeout(timer); // Cleanup timeout
+    } else {
+      onBreakEnd(); // Call the callback to resume the experiment
+    }
+  }, [countdown, onBreakEnd]);
+
+  return (
+    <Box
       sx={{
         display: 'flex',
-        flexDirection: 'column',
         justifyContent: 'center',
         alignItems: 'center',
-        border: '2px solid black',
         backgroundColor: 'black',
-        height: { xs: '80vh', md: '60vh' },
-        width: '100%',
-        padding: { xs: 2, sm: 3, md: 4 },
+        width: '100vw',
+        height: '100vh',
+        border: 'none',
+        overflow: 'auto',
       }}
     >
-      <Typography
+      <Container
+        maxWidth="md"
         sx={{
-          fontSize: { xs: '32px', sm: '48px', md: '60px' },
-          color: 'white',
-          textAlign: 'center',
-          maxWidth: '100%',
+          display: 'flex',
+          flexDirection: 'column',
+          justifyContent: 'center',
+          alignItems: 'center',
+          border: '2px solid black',
+          backgroundColor: 'black',
+          height: { xs: '80vh', md: '60vh' },
+          width: '100%',
+          padding: { xs: 2, sm: 3, md: 4 },
         }}
       >
-        Break Time!
-        <br />
-        Experiment will resume in 10 seconds.
-      </Typography>
-    </Container>
-  </Box>
-);
+        <Typography
+          sx={{
+            fontSize: { xs: '32px', sm: '48px', md: '60px' },
+            color: 'white',
+            textAlign: 'center',
+            maxWidth: '100%',
+          }}
+        >
+          Break Time!
+        </Typography>
+        <Typography
+          sx={{
+            fontSize: { xs: '24px', sm: '36px', md: '48px' },
+            color: 'white',
+            textAlign: 'center',
+            marginTop: 2,
+          }}
+        >
+          Experiment will resume in {countdown} seconds.
+        </Typography>
+      </Container>
+    </Box>
+  );
+}
 
 
 
@@ -1289,7 +1311,7 @@ useEffect(() => {
     slow = setTimeout(() => {
       setTooSlow(true);
       window.addEventListener('keydown', handleSpace); // add the event listener for user to hit space bar
-    }, 5000);
+    }, 2000);
   };
 
   //clean up
@@ -1565,6 +1587,11 @@ useEffect(() => {
           });
   };
 
+  const handleBreakEnd = () => {
+    setScreen(6); // Return to the experiment after the break
+    setTakeBreak(false); // Reset the break state
+  };
+
   return (
     <div>
       {screen === 1 && <Screen1 online = { online } onButtonClick={() => switchScreen(2)} />}
@@ -1578,7 +1605,7 @@ useEffect(() => {
       {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow}/>}
       {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick} />}
       {screen === 11 && <Screen11 online = {online} PID = {PID} />}
-      {screen === 12 && <Screen12 />}
+      {screen === 12 && <Screen12 onBreakEnd={handleBreakEnd} />}
     </div>
   );
 }
