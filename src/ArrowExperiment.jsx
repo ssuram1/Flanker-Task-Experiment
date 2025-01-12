@@ -1149,7 +1149,7 @@ useEffect(() => {
           setTargetScreen(11);
         }  
         //if A2, skip reminders
-        if (experiment === 'A2') {
+        if (experiment === 'A2' || experiment === 'A3') {
           setScreen(7);
         }
         //reminders screen
@@ -1186,16 +1186,17 @@ useEffect(() => {
         setTooFast(false); 
       }
       else {
+        //save response if tooSlow
+        saveResponse(null, 2000);
         // hides the too slow message
         setTooSlow(false);
       }
-      saveResponse(null, 0);
       console.log("added null trial");
       window.removeEventListener('keydown', handleSpace); // remove the event listener after handling the event
     }
 };
 
-//if takes more than 5 seconds, too slow message, and move pattern back
+//if takes more than 2 seconds, too slow message, and move pattern back
 useEffect(() => {
   let slow, move;
   //stores start time for pattern
@@ -1203,7 +1204,7 @@ useEffect(() => {
       setStartTime(Date.now());
       console.log(startTime);
       
-      //waits 5 seconds, then says too slow and adds event listener for space bar
+      //waits 2 seconds, then says too slow and adds event listener for space bar
       slow = setTimeout(() => {
         if (!tooFast) {
           setTooSlow(true);
@@ -1268,7 +1269,7 @@ useEffect(() => {
           return updatedSkipped;
       });
       setTooSlow(false);
-      if (experiment === 'A2') {
+      if (experiment === 'A2' || experiment === 'A3') {
         setScreen(7);
       }
       else {
@@ -1297,6 +1298,8 @@ useEffect(() => {
                 console.log("Response duration:", duration);
                 //if too fast response, mark as incorrect and send to end of experiment
                 if (duration < 150) {
+                  //save response and duration if tooFast
+                  saveResponse(key.toUpperCase(), duration);
                   setTooFast(true);
                 }
                 else {
@@ -1314,7 +1317,7 @@ useEffect(() => {
             else if((screen === 9) && (key.toUpperCase() == correctAnswers[currentPatternIndex])) {
               setCurrentPatternIndex(prevIndex => (prevIndex + 1));
               setInputValue('');
-              if (experiment === 'A2') {
+              if (experiment === 'A2' || experiment === 'A3') {
                 setScreen(7);
               }
               else {
@@ -1387,7 +1390,7 @@ useEffect(() => {
         setResponses(updatedResponses);
         console.log(newResponse);
         if (screen >= 9) {
-          if (experiment === 'A2') {
+          if (experiment === 'A2' || experiment === 'A3') {
             setScreen(7);
           }
           else {
@@ -1412,7 +1415,7 @@ useEffect(() => {
               console.log("setting screen 12");
               setScreen(12);
               setTimeout(() => {
-                if (experiment === 'A2') {
+                if (experiment === 'A2' || experiment === 'A3') {
                   setScreen(7);
                 }
                 else {
@@ -1463,7 +1466,7 @@ useEffect(() => {
       if (nextScreen >= 1 && nextScreen <= 5) {
           setScreen(screen + 1);
       } else if (screen === 9 || screen == 10) {
-        if (experiment === 'A2') {
+        if (experiment === 'A2' || experiment === 'A3') {
           setScreen(7);
         }
         else {
@@ -1502,7 +1505,8 @@ useEffect(() => {
       const url = URL.createObjectURL(blob);
       const a = document.createElement('a');
       a.href = url;
-      a.download = 'responses.json';
+      //custom download name : ID_experiment.json
+      a.download = `${PID}_${experiment}.json`;
       document.body.appendChild(a);
       a.click();
       document.body.removeChild(a);
@@ -1521,8 +1525,13 @@ useEffect(() => {
       const userid = PID || '10';
       console.log(typeof userid)
       //REDCap API endpoint
-      const url = 'https://redcap.case.edu/api/';
-
+      if(experiment === 'F1' || experiment === 'A1') {
+        const url = 'https://redcap.case.edu/api/';
+      }
+      else {
+        const url = 'https://redcap.uits.iu.edu/api/';
+      }
+     
       // Determine which field to use based on the experiment
       let dataField = 'flanker_data_json';
       if (experiment === 'F1' || experiment === 'A3') {
@@ -1533,7 +1542,10 @@ useEffect(() => {
       const body = {
           method: 'POST',
           //API Token
-          token: '6543B93BA07C88CFA3FD68E9692B1A87',
+          token: (experiment === 'F1' || experiment === 'A1') 
+          ? '6543B93BA07C88CFA3FD68E9692B1A87' 
+          //change for A2, A3 token
+          : '0',
           content: 'record',
           format: 'json',
           type: 'flat',
