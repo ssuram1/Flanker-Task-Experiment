@@ -6,49 +6,66 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery'; 
 
 // Screen 1- Welcome Screen
-const Screen1 = ({ onButtonClick, online }) => (
+const Screen1 = ({ onButtonClick, online, continued }) => (
   <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'black',
-      width: '100%',
-      height: '100vh',
-      padding: '5%',
-      boxSizing: 'border-box',
-    }}
-  >
-    <Typography 
-      align="center" 
-      variant="h4"
-      sx={{
-        color: "white",
-        marginBottom: '5vh',
-        fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
-      }}
-    >
-      Welcome! <br />
-      Before beginning the experiment, please read the instructions carefully. <br />
-      Press Continue to read instructions.
-    </Typography>
-    <Button
-      onClick={onButtonClick}
-      sx={{
-        border: '2px solid white',
-        backgroundColor: 'gray',
-        color: 'white',
-        padding: '10px 20px',
-        fontSize: {xs: '0.8rem', sm: '1rem'},
-        '&:hover': {
-          backgroundColor: 'darkgray',
-        },
-      }}
-    >
-      Continue
-    </Button>
-  </Box>
+  sx={{
+    display: 'flex',
+    flexDirection: 'column',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'black',
+    width: '100%',
+    height: '100vh',
+    padding: '5%',
+    boxSizing: 'border-box',
+  }}
+  >  
+  {continued ? ( 
+      <Typography 
+        align="center" 
+        variant="h4"
+        sx={{
+          color: "white",
+          marginBottom: '5vh',
+          fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
+        }}
+      >
+        Welcome back! < br/>
+        You will now complete another round of the same task you did earlier. Please keep your index fingers on the Q and P keys and press the Q key when the MIDDLE arrow is pointed left and the P key when the MIDDLE arrow is pointing right. Please respond as quickly as possible but without making mistakes. < br/> Press the spacebar to begin.
+      </Typography> ) :
+     (
+      <>
+      <Typography 
+        align="center" 
+        variant="h4"
+        sx={{
+          color: "white",
+          marginBottom: '5vh',
+          fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
+        }}
+      >
+        Welcome! <br />
+        Before beginning the experiment, please read the instructions carefully. <br />
+        Press Continue to read instructions.
+      </Typography>
+      <Button
+        onClick={onButtonClick}
+        sx={{
+          border: '2px solid white',
+          backgroundColor: 'gray',
+          color: 'white',
+          padding: '10px 20px',
+          fontSize: {xs: '0.8rem', sm: '1rem'},
+          '&:hover': {
+            backgroundColor: 'darkgray',
+          },
+        }}
+      >
+        Continue
+      </Button>
+      </>
+    )}
+    </Box>
 );
 
 //Screen 2- Intro
@@ -1079,6 +1096,7 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
   const [takeBreak, setTakeBreak] = useState(false);
   const [skipped, setSkipped] = useState([]);
   const [keyPressed, setKeyPressed] = useState(false);
+  const [continued, setContinued] = useState(false);
 
   
   //loop through CSV patterns
@@ -1090,7 +1108,10 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
         if (experiment === 'A1' || experiment === 'A2') {
             csvFile = '/flanker_arrows_A1.csv';
         } else {  // A3
-            csvFile = '/flanker_arrows_A3.csv';
+            csvFile = '/flanker-mini.csv';
+            setCurrentPatternIndex(8);
+            //show summarized instructions
+            setContinued(true);
         }
         console.log("Experiment:", experiment);
         const response = await axios.get(csvFile);
@@ -1129,7 +1150,7 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
       }
       }
       fetchData();
-  }, []);
+  }, [continued, experiment]);
 
 //check currentPatternIndex and patterns array
   useEffect(() => {
@@ -1140,13 +1161,15 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
   
 //use to advance from screen 5 to practice round and screen 10 to experiment
 useEffect(() => {
-  if(screen === 5 || screen === 10) {
+  if(screen === 5 || screen === 10 || screen === 1 && continued == true) {
     const handleStart = (event) => {
       //press space to advance to patterns
       if (event.code == 'Space') {
         //move to experiment
-        if (screen === 10) {
+        if (screen === 10 || screen === 1 && continued == true) {
           setTargetScreen(11);
+          setStartTime(Date.now());
+          console.log(startTime);
         }  
         //if A2, skip reminders
         if (experiment === 'A2' || experiment === 'A3') {
@@ -1166,7 +1189,7 @@ useEffect(() => {
     window.removeEventListener('keydown', handleStart);
   };
 }
-}, [screen]);
+}, [screen, continued, experiment]);
 
  //after hit space bar, move pattern to end and remove event listener
  const handleSpace = (event) => {
@@ -1432,7 +1455,7 @@ useEffect(() => {
               setStartTime(Date.now());
               console.log(startTime);
           }
-          else if (currentPatternIndex === 8) {
+          else if (currentPatternIndex === 8 && !continued) {
               setScreen(10); // Display screen 10 at halfway point of patterns in screen 8
           }
           else {
@@ -1523,14 +1546,16 @@ useEffect(() => {
       const urlParams = new URLSearchParams(window.location.search);
       //retrieve PID from URL query string
       const userid = PID || '10';
+      let url = '';
       console.log(typeof userid)
       //REDCap API endpoint
       if(experiment === 'F1' || experiment === 'A1') {
-        const url = 'https://redcap.case.edu/api/';
+        url = 'https://redcap.case.edu/api/';
       }
       else {
-        const url = 'https://redcap.uits.iu.edu/api/';
+        url = 'https://redcap.case.edu/api/';
       }
+      console.log(url);
      
       // Determine which field to use based on the experiment
       let dataField = 'flanker_data_json';
@@ -1545,7 +1570,7 @@ useEffect(() => {
           token: (experiment === 'F1' || experiment === 'A1') 
           ? '6543B93BA07C88CFA3FD68E9692B1A87' 
           //change for A2, A3 token
-          : '0',
+          : '6543B93BA07C88CFA3FD68E9692B1A87',
           content: 'record',
           format: 'json',
           type: 'flat',
@@ -1578,7 +1603,7 @@ useEffect(() => {
 
   return (
     <div>
-      {screen === 1 && <Screen1 online = { online } onButtonClick={() => switchScreen(2)} />}
+      {screen === 1 && <Screen1 online = { online } continued = { continued } onButtonClick={() => switchScreen(2)} />}
       {screen === 2 && <Screen2 onButtonClick={() => switchScreen(3)} />}
       {screen === 3 && <Screen3 onButtonClick={() => switchScreen(4)} />}
       {screen === 4 && <Screen4 onButtonClick={() => switchScreen(5)} />}
