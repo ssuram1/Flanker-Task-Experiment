@@ -1108,7 +1108,7 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
         if (experiment === 'A1' || experiment === 'A2') {
             csvFile = '/flanker_arrows_A1.csv';
         } else {  // A3
-            csvFile = '/flanker-mini.csv';
+            csvFile = '/flanker_arrows_A3.csv';
             setCurrentPatternIndex(8);
             //show summarized instructions
             setContinued(true);
