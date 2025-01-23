@@ -27,10 +27,11 @@ const Screen1 = ({ onButtonClick, online }) => (
         color: "white",
         marginBottom: '5vh',
         fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
+        fontWeight: 'bold'
       }}
     >
-      Welcome! <br />
-      Before beginning the experiment, please read the instructions carefully. <br />
+      Welcome! <br /> <br /> 
+      Before beginning the experiment, <br/> please read the instructions carefully. <br /> <br />
       Press Continue to read instructions.
     </Typography>
     <Button
@@ -153,17 +154,18 @@ const Screen2 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: 'white',
-            fontSize: { xs: '14px', sm: '16px', md: '18px' },
+            fontSize: { xs: '20px', sm: '22px', md: '25px' },
             textAlign: 'center',
             fontWeight: 'bold',
             mb: { xs: 2, sm: 3, md: 4 },
+            marginTop: '40px'
           }}
         >
-          A set of five arrows will be shown in the center of the screen.
-          Your task will be to indicate the direction of the MIDDLE arrow.
+          A set of five arrows will be shown in the center of the screen. <br />
+          Your task will be to indicate the direction of the MIDDLE arrow. <br /> <br />
           To submit your answer, press one of the following keys: <br />
           Q if the MIDDLE arrow is pointing to the LEFT <br />
-          P if the MIDDLE arrow is pointing to the RIGHT.
+          P if the MIDDLE arrow is pointing to the RIGHT.<br /> <br/>
           Press Continue to read further instruction.
         </Typography>
 
@@ -280,14 +282,14 @@ const Screen3 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: 'white',
-            fontSize: { xs: '16px', sm: '18px', md: '20px' },
+            fontSize: { xs: '20px', sm: '22px', md: '25px' },
             textAlign: 'center',
             fontWeight: 'bold',
             mb: 10,
           }}
         >
-      Sometimes the surrounding arrows will point in the opposite direction than the arrow in the middle. <br />
-      Only pay attention to the MIDDLE arrow!
+      Sometimes the surrounding arrows will point <br /> in the opposite direction than the arrow in the middle. <br /> <br />
+      Only pay attention to the MIDDLE arrow! <br /> <br />
       Press Continue to read further instruction.
         </Typography>
 

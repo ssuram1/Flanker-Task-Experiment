@@ -28,10 +28,11 @@ const Screen1 = ({ onButtonClick, online }) => (
         color: "white",
         marginBottom: '5vh',
         fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
+        fontWeight: 'bold'
       }}
     >
-      Welcome! <br />
-      Before beginning the experiment, please read the instructions carefully. <br />
+      Welcome! <br /> <br /> 
+      Before beginning the experiment, <br/> please read the instructions carefully. <br /> <br />
       Press Continue to read instructions.
     </Typography>
     <Button
@@ -82,8 +83,8 @@ const Screen2 = ({ onButtonClick, online }) => (
     >
       <Typography sx={{ fontSize: '50px', color: 'white' }}>Q</Typography>
       <img 
-        src="happy_face.png"
-        alt="happy face"
+        src="neutral_face.png"
+        alt="neutral face"
         style={{
           width: '50px',
           height: '50px',
@@ -137,7 +138,7 @@ const Screen2 = ({ onButtonClick, online }) => (
         {[...Array(5)].map((_, index) => (
           <img
             key={index}
-            src="/WM09_AC.bmp"
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp"
             alt="Face"
             style={{
               width: '150px',
@@ -151,17 +152,17 @@ const Screen2 = ({ onButtonClick, online }) => (
       <Typography
         sx={{
           color: 'white',
-          fontSize: '20px',
+          fontSize: { xs: '20px', sm: '22px', md: '25px' },
           textAlign: 'center',
           fontWeight: 'bold',
           marginTop: '40px',
         }}
       >
         A set of five faces will be shown in the center of the screen.<br />
-        Your task will be to indicate the direction of the MIDDLE face.<br />
+        Your task will be to indicate the emotionality of the MIDDLE face.<br /> <br />
         To submit your answer, press one of the following keys: <br />
-        Q if the MIDDLE face is pointing to the LEFT <br />
-        P if the MIDDLE face is pointing to the RIGHT.<br />
+        Q if the MIDDLE face is NOT EMOTIONAL.<br />
+        P if the MIDDLE face is EMOTIONAL.<br /> <br /> 
         Press Continue to read further instruction.
       </Typography>
 
@@ -214,8 +215,8 @@ const Screen3 = ({ onButtonClick }) => (
     >
       <Typography sx={{ fontSize: '50px', color: 'white' }}>Q</Typography>
       <img 
-        src="happy_face.png"
-        alt="happy face"
+        src="neutral_face.png"
+        alt="neutral face"
         style={{
           width: '50px',
           height: '50px',
@@ -269,7 +270,7 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC-${index}`} // Ensure unique keys
-            src="/WM09_AC.bmp" // Left images
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp" // Left images
             alt="Face"
             style={{
               width: '150px',
@@ -280,7 +281,7 @@ const Screen3 = ({ onButtonClick }) => (
         
         <img
           key="HC" // Ensure unique key for middle image
-          src="/WM09_HC.bmp" // Middle image
+          src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.bmp"// Middle image
           alt="Middle Face"
           style={{
             width: '150px',
@@ -291,7 +292,7 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC2-${index}`} // Ensure unique keys
-            src="/WM09_AC.bmp" // Right images
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp" // Right images
             alt="Face"
             style={{
               width: '150px',
@@ -305,14 +306,14 @@ const Screen3 = ({ onButtonClick }) => (
       <Typography
         sx={{
           color: 'white',
-          fontSize: '20px',
+          fontSize: '25px',
           textAlign: 'center',
           fontWeight: 'bold',
           marginTop: '40px',
         }}
       >
-        Sometimes the surrounding arrows will point in the opposite direction than the arrow in the middle. <br />
-        Only pay attention to the MIDDLE arrow!<br />
+        Sometimes the surrounding faces will have different emotionality <br /> than the face in the middle. <br /> <br />
+        Only pay attention to the MIDDLE face!<br /> <br />
         Press Continue to read further instruction.
       </Typography>
 
@@ -385,8 +386,8 @@ const Screen4 = ({ onButtonClick, online }) => (
             Q
           </Typography>
           <img 
-          src="happy_face.png"
-          alt="happy face"
+          src="neutral_face.png"
+          alt="neutral face"
           style={{
             width: '50px',
             height: '50px',
@@ -436,6 +437,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           In the example below, the left [Q]-key is correct:
@@ -451,11 +453,11 @@ const Screen4 = ({ onButtonClick, online }) => (
           {Array(5).fill(null).map((_, index) => (
             <img
               key={index}
-              src="/WM09_AC.bmp"
-              alt="Left arrow"
+              src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp"
+              alt="not emotional face"
               style={{
-                width: '50px',
-                height: '50px',
+                width: '75px',
+                height: '75px',
                 transform: 'rotate(0deg)'
               }}
             />
@@ -466,15 +468,17 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold',
           }}
         >
-          since the middle arrow is pointing to the left.
+          since the middle face is not emotional.
         </Typography>
         <Typography
           sx={{
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold',
           }}
         >
           In the example below, the right [P]-key is correct:
@@ -490,11 +494,11 @@ const Screen4 = ({ onButtonClick, online }) => (
           {[...Array(5)].map((_, index) => (
             <img
               key={index}
-              src={index === 2 ? "/WM09_HC.bmp" : "/WM09_AC.bmp"}
-              alt={index === 2 ? "Right arrow" : "Left arrow"}
+              src={index === 2 ? "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.bmp" : "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp"}
+              alt={index === 2 ? "emotional face" : "not emotional face"}
               style={{
-                width: '50px',
-                height: '50px',
+                width: '75px',
+                height: '75px',
                 transform: index === 2 ? 'rotate(0deg)' : 'rotate(0deg)' 
               }}
             />
@@ -505,15 +509,17 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold',
           }}
         >
-          since the middle arrow is pointing to the right.
+          since the middle face is emotional.
         </Typography>
         <Typography
           sx={{
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold',
           }}
         >
           Press Continue for further instruction.
@@ -597,8 +603,8 @@ const Screen5 = ({ onButtonClick, online }) => (
           Q
         </Typography>
         <img 
-            src="happy_face.png"
-            alt="happy face"
+            src="neutral_face.png"
+            alt="neutral face"
             style={{
               width: '50px',
               height: '50px',
@@ -653,13 +659,14 @@ const Screen5 = ({ onButtonClick, online }) => (
           sx={{
             color: "white",
             fontSize: { xs: "20px", sm: "25px", md: "30px" },
-            textAlign: 'center'
+            textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
-          You will now be given a chance to practice before the test begins. <br />
-          Remember: <br />
-          {'\u00A0\u00A0\u00A0\u00A0'}Keep focusing on the fixation point in the center of the screen and answer as quickly as possible but avoid mistakes. <br />
-          {'\u00A0\u00A0\u00A0\u00A0'}Place your index fingers on the [Q] and [P] keys. <br />
+          You will now be given a chance to practice<br /> before the test begins. <br /> <br />
+          Remember:
+          Keep focusing on the fixation point in the center of the screen and answer as quickly as possible but avoid mistakes. <br /><br />
+          Place your index fingers on the [Q] and [P] keys. <br />
           Press Start to begin the Practice Block.
         </Typography>
       </Box>
@@ -733,8 +740,8 @@ const Screen6 = ({ onButtonClick }) => (
           Q
         </Typography>
         <img 
-          src="happy_face.png"
-          alt="happy face"
+          src="neutral_face.png"
+          alt="neutral face"
           style={{
             width: '50px',
             height: '50px',
@@ -963,7 +970,15 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
         <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white' }}>
           Q
           <br />
-          &lt;
+          <img 
+          src="neutral_face.png"
+          alt="neutral face"
+          style={{
+            width: '50px',
+            height: '50px',
+            marginTop: '10px'
+          }}
+        />
         </Typography>
       </Button>
 
@@ -985,7 +1000,15 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
         <Typography sx={{ fontSize: { xs: '30px', sm: '40px', md: '50px' }, color: 'white' }}>
           P
           <br />
-          &gt;
+          <img 
+            src="angry_face.png"
+            alt="angry face"
+            style={{
+              width: '50px',
+              height: '50px',
+              marginTop: '10px'
+            }}
+          />
         </Typography>
       </Button>
 
@@ -1011,7 +1034,7 @@ const Screen10 = ({ onStartClick, onPracticeMoreClick, online }) => (
           }}
         >
           The experiment will now begin.
-          <br />
+          <br /> <br />
           Press Start to begin the Experiment Block.
           <br />
           If you would like additional practice, press Practice More.
@@ -1090,16 +1113,30 @@ const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
     >
       <Typography
         sx={{
+          fontSize: { xs: '30px', sm: '35px', md: '40px' },
+          color: 'white',
+          textAlign: 'center',
+          mb: { xs: 3, sm: 4, md: 5 },
+          fontWeight: 'bold'
+        }}
+      >
+        Thank you for completing the study, please enter the following confirmation code for completion back on RedCap / Prolific: 
+      </Typography>
+
+      <Typography
+        sx={{
           fontSize: { xs: '48px', sm: '72px', md: '100px' },
           color: 'white',
           textAlign: 'center',
           mb: { xs: 3, sm: 4, md: 5 },
         }}
       >
-        Thank you!
+        CQX1OE0G
       </Typography>
+
+
       
-      {online && (
+      {/* {online && (
         <Typography
           sx={{
             fontSize: { xs: '24px', sm: '36px', md: '50px' },
@@ -1110,7 +1147,7 @@ const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
         >
           {`Follow this link to the second experiment: https://flankertask.netlify.app?exp=F1&online=T&PID=${PID}`}
         </Typography>
-      )}
+      )} */}
     </Container>
   </Box>
 );
@@ -1162,13 +1199,14 @@ const Screen12 = ({ onBreakEnd }) => {
             color: 'white',
             textAlign: 'center',
             maxWidth: '100%',
+            fontWeight: 'bold'
           }}
         >
           Break Time!
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: '24px', sm: '36px', md: '48px' },
+            fontSize: { xs: '20px', sm: '25px', md: '30px' },
             color: 'white',
             textAlign: 'center',
             marginTop: 2,
@@ -1203,19 +1241,32 @@ const FaceExperiment = ({ online, experiment, PID }) => {
 
   // Helper function to create image pattern from URLs
   const createImagePattern = (flankerUrl, targetUrl) => {
-    return [
-      flankerUrl,  // left flanker
-      flankerUrl,  // left flanker
-      targetUrl,   // target
-      flankerUrl,  // right flanker
-      flankerUrl   // right flanker
-    ];
+    const flankers = flankerUrl.split(';').map(f => f.trim());
+
+    if (flankers.length === 4) {
+      return [
+        flankers[0],
+        flankers[1],
+        targetUrl,
+        flankers[2],
+        flankers[3]
+      ];
+    } 
+    else {
+      return [
+        flankerUrl,
+        flankerUrl,
+        targetUrl,
+        flankerUrl, 
+        flankerUrl
+      ];
+    }
   };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const csvFile = '/flanker_images_mini.csv'; 
+        const csvFile = '/flanker_schedule_f.csv'; 
         console.log("Experiment:", experiment);
         const response = await axios.get(csvFile);
         console.log("Raw CSV data:", response.data);
@@ -1524,6 +1575,12 @@ useEffect(() => {
       if (responses.length === 0) {
           console.error("No responses to download.");
           return;
+      }
+      const urlParams = new URLSearchParams(window.location.search);
+      const experimentParam = urlParams.get('experiment');
+      if (experimentParam === 'A1' || experimentParam === 'F1') {
+        console.log(`No JSON download.`);
+        return;
       }
       const jsonData = JSON.stringify(responses);
       const blob = new Blob([jsonData], { type: 'application/json' });
