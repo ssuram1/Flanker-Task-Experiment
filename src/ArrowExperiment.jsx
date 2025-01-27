@@ -389,6 +389,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           In the example below, the left [Q]-key is correct:
@@ -396,8 +397,9 @@ const Screen4 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "20px", sm: "28px", md: "32px" },
+            fontSize: { xs: "25px", sm: "28px", md: "30px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           &lt; &lt; &lt; &lt; &lt;
@@ -407,6 +409,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           since the middle arrow is pointing to the left.
@@ -416,6 +419,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           In the example below, the right [P]-key is correct:
@@ -425,6 +429,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "20px", sm: "28px", md: "32px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           &lt; &lt; &gt; &lt; &lt;
@@ -434,6 +439,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           since the middle arrow is pointing to the right.
@@ -443,6 +449,7 @@ const Screen4 = ({ onButtonClick, online }) => (
             color: "white",
             fontSize: { xs: "16px", sm: "20px", md: "24px" },
             textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
           Press Continue for further instruction.
@@ -558,13 +565,14 @@ const Screen5 = ({ online }) => (
           sx={{
             color: "white",
             fontSize: { xs: "20px", sm: "25px", md: "30px" },
-            textAlign: 'center'
+            textAlign: 'center',
+            fontWeight: 'bold'
           }}
         >
-          You will now be given a chance to practice before the test begins. <br />
-          Remember: <br />
-          {'\u00A0\u00A0\u00A0\u00A0'}Keep focusing on the fixation point in the center of the screen and answer as quickly as possible but avoid mistakes. <br />
-          {'\u00A0\u00A0\u00A0\u00A0'}Place your index fingers on the [Q] and [P] keys. <br />
+          You will now be given a chance to practice<br /> before the test begins. <br /> <br />
+          Remember:
+          Keep focusing on the fixation point in the center of the screen and answer as quickly as possible but avoid mistakes. <br /><br />
+          Place your index fingers on the [Q] and [P] keys. <br />
           Press the space bar to begin the Practice Block.
         </Typography>
       </Box>
@@ -800,7 +808,7 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow, too
 );
 
 //Screen 10- Experiment Begins
-const Screen10 = ({ online }) => (
+const Screen10 = ({ onStartClick, onPracticeClick, online }) => (
   <Box
     sx={{
       display: 'flex',
@@ -872,8 +880,7 @@ const Screen10 = ({ online }) => (
           &gt;
         </Typography>
       </Button>
-
-      <Box
+<Box
         sx={{
           display: 'flex',
           flexDirection: 'column',
@@ -895,8 +902,10 @@ const Screen10 = ({ online }) => (
           }}
         >
           The experiment will now begin.
+          <br /> <br />
+          Press Start to begin the Experiment Block.
           <br />
-          Press the space bar to begin the Experiment Block.
+          If you would like additional practice, press Practice More.
         </Typography>
 
         <Box
@@ -910,7 +919,7 @@ const Screen10 = ({ online }) => (
             mt: { xs: 2, sm: 3 },
           }}
         >
-          {/* <Button
+          <Button
             onClick={onStartClick}
             sx={{
               border: '2px solid white',
@@ -922,9 +931,9 @@ const Screen10 = ({ online }) => (
             }}
           >
             Start
-          </Button> */}
-          {/* <Button
-            onClick={onPracticeMoreClick}
+          </Button>
+          <Button
+            onClick={onPracticeClick}
             sx={{
               border: '2px solid white',
               backgroundColor: 'grey',
@@ -935,7 +944,7 @@ const Screen10 = ({ online }) => (
             }}
           >
             Practice More
-          </Button> */}
+          </Button>
         </Box>
       </Box>
     </Container>
@@ -976,6 +985,7 @@ const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
           color: 'white',
           textAlign: 'center',
           mb: { xs: 3, sm: 4, md: 5 },
+          fontWeight: 'bold'
         }}
       >
         Thank you!
@@ -1044,13 +1054,14 @@ const Screen12 = ({ onBreakEnd }) => {
             color: 'white',
             textAlign: 'center',
             maxWidth: '100%',
+            fontWeight: 'bold'
           }}
         >
           Break Time!
         </Typography>
         <Typography
           sx={{
-            fontSize: { xs: '24px', sm: '36px', md: '48px' },
+            fontSize: { xs: '20px', sm: '25px', md: '30px' },
             color: 'white',
             textAlign: 'center',
             marginTop: 2,
@@ -1456,7 +1467,9 @@ useEffect(() => {
   useEffect(() => {
       if (screen === 11) {
           console.log("Screen reached 11, downloading responses...");
-          downloadResponses();
+          if (experiment === "A2" || experiment === "A3") {
+            downloadResponses();
+          }
       }
   }, [screen]);
 
@@ -1477,21 +1490,20 @@ useEffect(() => {
       }
   };
 
-  // //at screen 10, begin experiment
-  // const handleStartClick = () => {
-  //   console.log("Starting the experiment block...");
-  //   setTargetScreen(11);
-  //  
-  //   switchScreen(10);
-  // };
+   //at screen 10, begin experiment
+   const handleStartClick = () => {
+     console.log("Starting the experiment block...");
+    setTargetScreen(11);
+    switchScreen(10);
+  };
 
   // //at screen 10, repeat practice round
-  // const handlePracticeClick = () => {
-  //   // Logic to start the experiment block
-  //   console.log("Resetting practice block...");
-  //   setCurrentPatternIndex(0);
-  //   switchScreen(10);
-  // };
+  const handlePracticeClick = () => {
+    // Logic to start the experiment block
+    console.log("Resetting practice block...");
+    setCurrentPatternIndex(0);
+    switchScreen(10);
+  };
   
 //downloads user responses
   const downloadResponses = () => {
@@ -1577,7 +1589,7 @@ useEffect(() => {
       {screen === 7 && <Screen7 />}
       {screen === 8 && <Screen8 />}
       {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow} tooFast={tooFast}/>}
-      {screen === 10 && <Screen10 />}
+      {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick}/>}
       {screen === 11 && <Screen11 online = {online} PID = {PID} />}
       {screen === 12 && <Screen12 onBreakEnd={handleBreakEnd} />}
     </div>

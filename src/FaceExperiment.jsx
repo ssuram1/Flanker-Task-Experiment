@@ -892,15 +892,12 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow, too
       
       {tooSlow && (
         <Typography
-          sx={{
-            fontSize: { xs: '24px', sm: '36px', md: '50px' },
-            color: 'red',
-            textAlign: 'center',
-            position: 'absolute',
-            bottom: '20%',
-            left: '50%',
-            transform: 'translateX(-50%)',
-          }}
+        sx={{
+          fontSize: { xs: '24px', sm: '36px', md: '50px' },
+          color: 'red',
+          textAlign: 'center',
+          mt: { xs: 2, sm: 3, md: 4 },
+        }}
         >
           Too Slow! Press Space to continue.
         </Typography>
@@ -1626,7 +1623,7 @@ const FaceExperiment = ({ online, experiment, PID }) => {
     useEffect(() => {
         if (screen === 11) {
             console.log("Screen reached 11, downloading responses...");
-            downloadResponses();
+  //           downloadResponses();
         }
     }, [screen]);
   
