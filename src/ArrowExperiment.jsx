@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery'; 
 
 // Screen 1- Welcome Screen
-const Screen1 = ({ onButtonClick, online }) => (
+const Screen1 = ({ onButtonClick, experiment}) => (
   <Box
     sx={{
       display: 'flex',
@@ -53,7 +53,7 @@ const Screen1 = ({ onButtonClick, online }) => (
 );
 
 //Screen 2- Intro
-const Screen2 = ({ onButtonClick, online }) => (
+const Screen2 = ({ onButtonClick, experiment }) => (
   <Box
     sx={{
       display: 'flex',
@@ -154,7 +154,7 @@ const Screen2 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: 'white',
-            fontSize: { xs: '20px', sm: '22px', md: '25px' },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold',
             mb: { xs: 2, sm: 3, md: 4 },
@@ -189,7 +189,7 @@ const Screen2 = ({ onButtonClick, online }) => (
 
 
 // Screen 3- Incongruent Stimulus
-const Screen3 = ({ onButtonClick, online }) => (
+const Screen3 = ({ onButtonClick, experiment }) => (
   <Box
     sx={{
       display: 'flex',
@@ -282,7 +282,7 @@ const Screen3 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: 'white',
-            fontSize: { xs: '20px', sm: '22px', md: '25px' },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold',
             mb: 10,
@@ -313,7 +313,7 @@ const Screen3 = ({ onButtonClick, online }) => (
 
 
 //Screen 4 - Example
-const Screen4 = ({ onButtonClick, online }) => (
+const Screen4 = ({ onButtonClick, experiment }) => (
   <Box
     sx={{
       display: 'flex',
@@ -387,7 +387,7 @@ const Screen4 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -407,7 +407,7 @@ const Screen4 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -417,7 +417,7 @@ const Screen4 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -437,7 +437,7 @@ const Screen4 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -447,7 +447,7 @@ const Screen4 = ({ onButtonClick, online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -481,7 +481,7 @@ const Screen4 = ({ onButtonClick, online }) => (
 );
 
 //Begin Practice Round- Screen 5
-const Screen5 = ({ online }) => (
+const Screen5 = ({ experiment }) => (
   <Box
     sx={{
       display: 'flex',
@@ -564,7 +564,7 @@ const Screen5 = ({ online }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "20px", sm: "25px", md: "30px" },
+            fontSize: {xs: '1rem', sm: '1.5rem', md: '2rem'},
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -808,7 +808,7 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow, too
 );
 
 //Screen 10- Experiment Begins
-const Screen10 = ({ onStartClick, onPracticeClick, online }) => (
+const Screen10 = ({ onStartClick, onPracticeClick, experiment }) => (
   <Box
     sx={{
       display: 'flex',
@@ -880,79 +880,111 @@ const Screen10 = ({ onStartClick, onPracticeClick, online }) => (
           &gt;
         </Typography>
       </Button>
-<Box
-        sx={{
-          display: 'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          flex: 1,
-          mt: { xs: 16, sm: 20, md: 16 },
-          mb: { xs: 2, sm: 3, md: 4 },
-        }}
-      >
-        <Typography
-          sx={{
-            color: 'white',
-            fontSize: { xs: '18px', sm: '22px', md: '26px' }, // Increased font sizes
-            textAlign: 'center',
-            fontWeight: 'bold',
-            mb: { xs: 3, sm: 4, md: 5 }, // Increased bottom margin
-            maxWidth: '90%', // Ensure text doesn't get too wide on larger screens
-          }}
-        >
-          The experiment will now begin.
-          <br /> <br />
-          Press Start to begin the Experiment Block.
-          <br />
-          If you would like additional practice, press Practice More.
-        </Typography>
+ {/* Conditionally render different screens */}
+ {experiment === 'A1' ? (
+          // Version for experiment A1
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              mt: { xs: 16, sm: 20, md: 16 },
+              mb: { xs: 2, sm: 3, md: 4 },
+            }}
+          >
+            <Typography
+              sx={{
+                color: 'white',
+                fontSize: { xs: '18px', sm: '22px', md: '26px' },
+                textAlign: 'center',
+                fontWeight: 'bold',
+                mb: { xs: 3, sm: 4, md: 5 },
+                maxWidth: '90%',
+              }}
+            >
+              The experiment will now begin.
+              <br /> <br />
+              Press Start to begin the Experiment Block.
+              <br />
+              If you would like additional practice, press Practice More.
+            </Typography>
 
-        <Box
-          sx={{
-            display: 'flex',
-            flexDirection: { xs: 'column', sm: 'row' },
-            justifyContent: 'center',
-            alignItems: 'center',
-            width: '100%',
-            gap: { xs: 2, sm: 3 },
-            mt: { xs: 2, sm: 3 },
-          }}
-        >
-          <Button
-            onClick={onStartClick}
+            <Box
+              sx={{
+                display: 'flex',
+                flexDirection: { xs: 'column', sm: 'row' },
+                justifyContent: 'center',
+                alignItems: 'center',
+                width: '100%',
+                gap: { xs: 2, sm: 3 },
+                mt: { xs: 2, sm: 3 },
+              }}
+            >
+              <Button
+                onClick={onStartClick}
+                sx={{
+                  border: '2px solid white',
+                  backgroundColor: 'grey',
+                  color: 'white',
+                  height: '50px',
+                  width: { xs: '80%', sm: '150px' },
+                  fontSize: { xs: '16px', sm: '18px' },
+                }}
+              >
+                Start
+              </Button>
+              <Button
+                onClick={onPracticeClick}
+                sx={{
+                  border: '2px solid white',
+                  backgroundColor: 'grey',
+                  color: 'white',
+                  height: '50px',
+                  width: { xs: '80%', sm: '150px' },
+                  fontSize: { xs: '16px', sm: '18px' },
+                }}
+              >
+                Practice More
+              </Button>
+            </Box>
+          </Box>
+        ) : (
+          // Version for experiments A2 & A3
+          <Box
             sx={{
-              border: '2px solid white',
-              backgroundColor: 'grey',
-              color: 'white',
-              height: '50px',
-              width: { xs: '80%', sm: '150px' },
-              fontSize: { xs: '16px', sm: '18px' }, // Slightly increased font size
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              mt: { xs: 16, sm: 20, md: 16 },
+              mb: { xs: 2, sm: 3, md: 4 },
             }}
           >
-            Start
-          </Button>
-          <Button
-            onClick={onPracticeClick}
-            sx={{
-              border: '2px solid white',
-              backgroundColor: 'grey',
-              color: 'white',
-              height: '50px',
-              width: { xs: '80%', sm: '150px' },
-              fontSize: { xs: '16px', sm: '18px' }, // Slightly increased font size
-            }}
-          >
-            Practice More
-          </Button>
-        </Box>
-      </Box>
-    </Container>
-  </Box>
-);
+            <Typography
+              sx={{
+                color: 'white',
+                fontSize: { xs: '18px', sm: '22px', md: '26px' },
+                textAlign: 'center',
+                fontWeight: 'bold',
+                mb: { xs: 3, sm: 4, md: 5 },
+                maxWidth: '90%',
+              }}
+            >
+              The experiment will now begin.
+              <br />
+              Press the space bar to begin the Experiment Block.
+            </Typography>
+          </Box>
+        )}
+      </Container>
+    </Box>
+  );
 
 //Screen 11
-const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
+const Screen11 = ({ onButtonClick, value, onChange, experiment, PID }) => (
   <Box
     sx={{
       display: 'flex',
@@ -991,7 +1023,7 @@ const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
         Thank you!
       </Typography>
       
-      {online && (
+      {experiment == "A1" && (
         <Typography
           sx={{
             fontSize: { xs: '24px', sm: '36px', md: '50px' },
@@ -1000,7 +1032,7 @@ const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
             mt: { xs: 2, sm: 3, md: 4 },
           }}
         >
-          {`Follow this link to the second experiment: https://flankertask.netlify.app?exp=F1&online=T&PID=${PID}`}
+          {`Follow this link to the second experiment: https://flankertask.netlify.app?exp=F1&PID=${PID}`}
         </Typography>
       )}
     </Container>
@@ -1075,7 +1107,7 @@ const Screen12 = ({ onBreakEnd }) => {
 };
 
 //Rotate Screens
-const ArrowExperiment = ({ online, experiment, PID }) => {
+const ArrowExperiment = ({ experiment, PID }) => {
   const [screen, setScreen] = useState(1);
   const [delay, setDelay] = useState(1000);
   const [inputValue, setInputValue] = useState('');
@@ -1592,7 +1624,7 @@ useEffect(() => {
 
   return (
     <div>
-      {screen === 1 && <Screen1 online = { online } onButtonClick={() => switchScreen(2)} />}
+      {screen === 1 && <Screen1 experiment = { experiment } onButtonClick={() => switchScreen(2)} />}
       {screen === 2 && <Screen2 onButtonClick={() => switchScreen(3)} />}
       {screen === 3 && <Screen3 onButtonClick={() => switchScreen(4)} />}
       {screen === 4 && <Screen4 onButtonClick={() => switchScreen(5)} />}
@@ -1601,8 +1633,8 @@ useEffect(() => {
       {screen === 7 && <Screen7 />}
       {screen === 8 && <Screen8 />}
       {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow} tooFast={tooFast}/>}
-      {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick}/>}
-      {screen === 11 && <Screen11 online = {online} PID = {PID} />}
+      {screen === 10 && <Screen10 experiment = {experiment} onStartClick={handleStartClick} onPracticeClick={handlePracticeClick}/>}
+      {screen === 11 && <Screen11 experiment = {experiment} PID = {PID} />}
       {screen === 12 && <Screen12 onBreakEnd={handleBreakEnd} />}
     </div>
   );
