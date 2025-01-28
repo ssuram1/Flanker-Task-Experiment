@@ -7,7 +7,7 @@ import $ from 'jquery';
 
 
 // Screen 1- Welcome Screen
-const Screen1 = ({ onButtonClick, online }) => (
+const Screen1 = ({ onButtonClick }) => (
   <Box
     sx={{
       display: 'flex',
@@ -55,7 +55,7 @@ const Screen1 = ({ onButtonClick, online }) => (
 
 
 // Screen 2- Congruent Stimulus + P and Q Buttons
-const Screen2 = ({ onButtonClick, online }) => (
+const Screen2 = ({ onButtonClick}) => (
   <Box
     sx={{
       display: 'flex',
@@ -138,11 +138,11 @@ const Screen2 = ({ onButtonClick, online }) => (
         {[...Array(5)].map((_, index) => (
           <img
             key={index}
-            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp"
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png"
             alt="Face"
             style={{
-              width: '150px',
-              height: '150px',
+              width: '100px',
+              height: '100px',
             }}
           />
         ))}
@@ -270,33 +270,33 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC-${index}`} // Ensure unique keys
-            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp" // Left images
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png" // Left images
             alt="Face"
             style={{
-              width: '150px',
-              height: '150px',
+              width: '100px',
+              height: '100px',
             }}
           />
         ))}
         
         <img
           key="HC" // Ensure unique key for middle image
-          src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.bmp"// Middle image
+          src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.png"// Middle image
           alt="Middle Face"
           style={{
-            width: '150px',
-            height: '150px',
+            width: '100px',
+            height: '100px',
           }}
         />
 
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC2-${index}`} // Ensure unique keys
-            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp" // Right images
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png" // Right images
             alt="Face"
             style={{
-              width: '150px',
-              height: '150px',
+              width: '100px',
+              height: '100px',
             }}
           />
         ))}
@@ -337,7 +337,7 @@ const Screen3 = ({ onButtonClick }) => (
 );
 
 //Screen 4 - Example
-const Screen4 = ({ onButtonClick, online }) => (
+const Screen4 = ({ onButtonClick}) => (
   <Box
     sx={{
       display: 'flex',
@@ -453,7 +453,7 @@ const Screen4 = ({ onButtonClick, online }) => (
           {Array(5).fill(null).map((_, index) => (
             <img
               key={index}
-              src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp"
+              src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png"
               alt="not emotional face"
               style={{
                 width: '75px',
@@ -494,7 +494,7 @@ const Screen4 = ({ onButtonClick, online }) => (
           {[...Array(5)].map((_, index) => (
             <img
               key={index}
-              src={index === 2 ? "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.bmp" : "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.bmp"}
+              src={index === 2 ? "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.png" : "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png"}
               alt={index === 2 ? "emotional face" : "not emotional face"}
               style={{
                 width: '75px',
@@ -551,7 +551,7 @@ const Screen4 = ({ onButtonClick, online }) => (
 );
 
 //Begin Practice Round
-const Screen5 = ({ onButtonClick, online }) => (
+const Screen5 = ({ onButtonClick }) => (
   <Box
     sx={{
       display: 'flex',
@@ -921,7 +921,7 @@ const Screen9 = ({ onButtonClick, value, onChange, currentPattern1, tooSlow, too
 );
 
 //Screen 10- Experiment Begins
-const Screen10 = ({ onStartClick, onPracticeClick, online }) => (
+const Screen10 = ({ onStartClick, onPracticeClick }) => (
   <Box
     sx={{
       display: 'flex',
@@ -1082,7 +1082,7 @@ const Screen10 = ({ onStartClick, onPracticeClick, online }) => (
 );
 
 //Screen 11
-const Screen11 = ({ onButtonClick, value, onChange, online, PID }) => (
+const Screen11 = ({ onButtonClick, value, onChange, PID }) => (
   <Box
     sx={{
       display: 'flex',
@@ -1218,7 +1218,7 @@ const Screen12 = ({ onBreakEnd }) => {
 }
 
 
-const FaceExperiment = ({ online, experiment, PID }) => {
+const FaceExperiment = ({ experiment, PID }) => {
     const [screen, setScreen] = useState(1);
     const [delay, setDelay] = useState(1000);
     const [inputValue, setInputValue] = useState('');
@@ -1243,7 +1243,7 @@ const FaceExperiment = ({ online, experiment, PID }) => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const csvFile = '/flanker_schedule_f.csv';
+          const csvFile = '/flanker_schedule_f_test1.csv';
           console.log("Experiment:", experiment);
           const response = await axios.get(csvFile);
           console.log("Raw CSV data:", response.data);
@@ -1740,7 +1740,7 @@ const FaceExperiment = ({ online, experiment, PID }) => {
   
     return (
       <div>
-        {screen === 1 && <Screen1 online = { online } continued = { continued } onButtonClick={() => switchScreen(2)} />}
+        {screen === 1 && <Screen1 continued = { continued } onButtonClick={() => switchScreen(2)} />}
         {screen === 2 && <Screen2 onButtonClick={() => switchScreen(3)} />}
         {screen === 3 && <Screen3 onButtonClick={() => switchScreen(4)} />}
         {screen === 4 && <Screen4 onButtonClick={() => switchScreen(5)} />}
@@ -1750,7 +1750,7 @@ const FaceExperiment = ({ online, experiment, PID }) => {
         {screen === 8 && <Screen8 />}
         {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow} tooFast={tooFast}/>}
         {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick}/>}
-        {screen === 11 && <Screen11 online = {online} PID = {PID} />}
+        {screen === 11 && <Screen11 PID = {PID} />}
         {screen === 12 && <Screen12 onBreakEnd={handleBreakEnd} />}
       </div>
     );
