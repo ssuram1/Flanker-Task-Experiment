@@ -154,7 +154,7 @@ const Screen2 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: 'white',
-            fontSize: { xs: '20px', sm: '22px', md: '25px' },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold',
             mb: { xs: 2, sm: 3, md: 4 },
@@ -282,7 +282,7 @@ const Screen3 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: 'white',
-            fontSize: { xs: '20px', sm: '22px', md: '25px' },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold',
             mb: 10,
@@ -387,7 +387,7 @@ const Screen4 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -407,7 +407,7 @@ const Screen4 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -417,7 +417,7 @@ const Screen4 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -437,7 +437,7 @@ const Screen4 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -447,7 +447,7 @@ const Screen4 = ({ onButtonClick, experiment }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "16px", sm: "20px", md: "24px" },
+            fontSize: { xs: '0.5rem', sm: '1.0rem', md: '1.5rem' },
             textAlign: 'center',
             fontWeight: 'bold'
           }}
@@ -564,7 +564,7 @@ const Screen5 = ({ experiment }) => (
         <Typography
           sx={{
             color: "white",
-            fontSize: { xs: "20px", sm: "25px", md: "30px" },
+            fontSize: {xs: '1rem', sm: '1.5rem', md: '2rem'},
             textAlign: 'center',
             fontWeight: 'bold'
           }}
