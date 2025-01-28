@@ -1243,7 +1243,7 @@ const FaceExperiment = ({ experiment, PID }) => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const csvFile = '/flanker_schedule_f_test1.csv';
+          const csvFile = '/flanker_schedule_f.csv';
           console.log("Experiment:", experiment);
           const response = await axios.get(csvFile);
           console.log("Raw CSV data:", response.data);
@@ -1748,7 +1748,7 @@ const FaceExperiment = ({ experiment, PID }) => {
         {screen === 6 && <Screen6 />}
         {screen === 7 && <Screen7 />}
         {screen === 8 && <Screen8 />}
-        {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.target.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow} tooFast={tooFast}/>}
+        {screen === 9 && <Screen9 value={inputValue} onChange={(e) => setInputValue(e.targscet.value)} currentPattern1={patterns[currentPatternIndex]} tooSlow={tooSlow} tooFast={tooFast}/>}
         {screen === 10 && <Screen10 onStartClick={handleStartClick} onPracticeClick={handlePracticeClick}/>}
         {screen === 11 && <Screen11 PID = {PID} />}
         {screen === 12 && <Screen12 onBreakEnd={handleBreakEnd} />}
