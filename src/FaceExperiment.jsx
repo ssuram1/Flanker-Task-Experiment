@@ -1118,7 +1118,7 @@ const Screen11 = ({ onButtonClick, value, onChange, PID }) => (
           fontWeight: 'bold'
         }}
       >
-        Thank you for completing the study, please enter the following confirmation code for completion back on RedCap / Prolific: 
+        Thank you for completing the study, please enter the following confirmation code for completion back on redcap.case.edu and/or Prolific: 
       </Typography>
 
       <Typography
@@ -1127,6 +1127,7 @@ const Screen11 = ({ onButtonClick, value, onChange, PID }) => (
           color: 'white',
           textAlign: 'center',
           mb: { xs: 3, sm: 4, md: 5 },
+          fontWeight: 'bold'
         }}
       >
         CQX1OE0G
