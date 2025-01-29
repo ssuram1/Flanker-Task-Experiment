@@ -1023,16 +1023,23 @@ const Screen11 = ({ onButtonClick, value, onChange, experiment, PID }) => (
         Thank you!
       </Typography>
       
-      {experiment == "A1" && (
+      {experiment === "A1" && (
         <Typography
+          component="a"
+          href={`https://flankertask.netlify.app?exp=F1&PID=${PID}`}
+          target="_blank"
+          rel="noopener noreferrer"
           sx={{
-            fontSize: { xs: '24px', sm: '36px', md: '50px' },
+            fontSize: { xs: '1.5rem', sm: '2.0rem', md: '2.5rem' },
             color: 'white',
             textAlign: 'center',
             mt: { xs: 2, sm: 3, md: 4 },
+            textDecoration: 'underline',
+            cursor: 'pointer',
+            fontWeight: 'bold'
           }}
         >
-          {`Follow this link to the second experiment: https://flankertask.netlify.app?exp=F1&PID=${PID}`}
+          Click this link to the second attention game! 
         </Typography>
       )}
     </Container>
