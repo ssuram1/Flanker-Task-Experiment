@@ -6,7 +6,6 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery'; 
 
 // Screen 1- Welcome Screen
-<<<<<<< Updated upstream
 const Screen1 = ({ onButtonClick, online, continued }) => (
   <Box
   sx={{
@@ -22,23 +21,6 @@ const Screen1 = ({ onButtonClick, online, continued }) => (
   }}
   >  
   {continued ? ( 
-=======
-const Screen1 = ({ onButtonClick, experiment, continued}) => (
-  <Box
-    sx={{
-      display: 'flex',
-      flexDirection: 'column',
-      justifyContent: 'center',
-      alignItems: 'center',
-      backgroundColor: 'black',
-      width: '100%',
-      height: '100vh',
-      padding: '5%',
-      boxSizing: 'border-box',
-    }}
-  >
-    {continued ? ( 
->>>>>>> Stashed changes
       <Typography 
         align="center" 
         variant="h4"
