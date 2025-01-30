@@ -6,6 +6,7 @@ import ReactDOM from 'react-dom';
 import $ from 'jquery'; 
 
 // Screen 1- Welcome Screen
+<<<<<<< Updated upstream
 const Screen1 = ({ onButtonClick, online, continued }) => (
   <Box
   sx={{
@@ -21,6 +22,23 @@ const Screen1 = ({ onButtonClick, online, continued }) => (
   }}
   >  
   {continued ? ( 
+=======
+const Screen1 = ({ onButtonClick, experiment, continued}) => (
+  <Box
+    sx={{
+      display: 'flex',
+      flexDirection: 'column',
+      justifyContent: 'center',
+      alignItems: 'center',
+      backgroundColor: 'black',
+      width: '100%',
+      height: '100vh',
+      padding: '5%',
+      boxSizing: 'border-box',
+    }}
+  >
+    {continued ? ( 
+>>>>>>> Stashed changes
       <Typography 
         align="center" 
         variant="h4"
@@ -887,6 +905,39 @@ const Screen10 = ({ online }) => (
           &gt;
         </Typography>
       </Button>
+<<<<<<< Updated upstream
+=======
+  {/* Conditionally render different screens */}
+  {experiment === 'A1' ? (
+          // Version for experiment A1
+          <Box
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              flex: 1,
+              mt: { xs: 16, sm: 20, md: 16 },
+              mb: { xs: 2, sm: 3, md: 4 },
+            }}
+          >
+            <Typography
+              sx={{
+                color: 'white',
+                fontSize: { xs: '18px', sm: '22px', md: '26px' },
+                textAlign: 'center',
+                fontWeight: 'bold',
+                mb: { xs: 3, sm: 4, md: 5 },
+                maxWidth: '90%',
+              }}
+            >
+              The experiment will now begin.
+              <br /> <br />
+              Press Start to begin the Experiment Block.
+              <br />
+              If you would like additional practice, press Practice More.
+            </Typography>
+>>>>>>> Stashed changes
 
       <Box
         sx={{
@@ -1088,6 +1139,7 @@ const ArrowExperiment = ({ online, experiment, PID }) => {
   const [stopwatch, setStopwatch] = useState(0);
   const [startTime, setStartTime] = useState(0);
   const [patterns, setPatterns] = useState([]);
+  const [continued, setContinued] = useState(0);
   const [correctAnswers, setCorrectAnswers] = useState(0);
   const [currentPatternIndex, setCurrentPatternIndex] = useState(0);
   const [congruency, setCongruency] = useState(0);
@@ -1603,7 +1655,11 @@ useEffect(() => {
 
   return (
     <div>
+<<<<<<< Updated upstream
       {screen === 1 && <Screen1 online = { online } continued = { continued } onButtonClick={() => switchScreen(2)} />}
+=======
+      {screen === 1 && <Screen1 experiment = { experiment } continued = {continued} onButtonClick={() => switchScreen(2)} />}
+>>>>>>> Stashed changes
       {screen === 2 && <Screen2 onButtonClick={() => switchScreen(3)} />}
       {screen === 3 && <Screen3 onButtonClick={() => switchScreen(4)} />}
       {screen === 4 && <Screen4 onButtonClick={() => switchScreen(5)} />}
