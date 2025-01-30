@@ -1218,10 +1218,31 @@ const Screen12 = ({ onBreakEnd }) => {
   );
 }
 
+const preloadImages = (imageUrls, onComplete) => {
+  let loadedCount = 0;
+  const totalImages = imageUrls.length;
+  console.warn(`Preloading images`);
+
+  imageUrls.forEach((src) => {
+    const img = new Image();
+    img.src = src;
+    img.onload = () => {
+      loadedCount++;
+      if (loadedCount === totalImages) {
+        onComplete(); // Callback when all images are loaded
+      }
+    };
+    img.onerror = () => {
+      console.warn(`Failed to load image: ${src}`);
+    };
+  });
+};
 
 const FaceExperiment = ({ experiment, PID }) => {
     const [screen, setScreen] = useState(1);
     const [delay, setDelay] = useState(1000);
+    const [imagesLoaded, setImagesLoaded] = useState(false);
+    const [imageUrls, setImageUrls] = useState([]);
     const [inputValue, setInputValue] = useState('');
     const [targetScreen, setTargetScreen] = useState(0);
     const [responses, setResponses] = useState([]);
@@ -1238,6 +1259,45 @@ const FaceExperiment = ({ experiment, PID }) => {
     const [skipped, setSkipped] = useState([]);
     const [keyPressed, setKeyPressed] = useState(false);
     const [continued, setContinued] = useState(false);
+
+    useEffect(() => {
+      const fetchAndExtractImages = async () => {
+        try {
+          const csvFile = '/flanker_schedule_f.csv';
+          const response = await axios.get(csvFile);
+
+          Papa.parse(response.data, {
+            header: true,
+            complete: (results) => {
+              const uniqueImages = new Set();
+
+              results.data.forEach(row => {
+                if (row.target) {
+                  uniqueImages.add(row.target.trim()); // Add target image
+                }
+                if (row.flanker) {
+                  row.flanker.split(';').forEach(img => {
+                    uniqueImages.add(img.trim()); // Add all flanker images
+                  });
+                }
+              });
+
+              const extractedImages = Array.from(uniqueImages);
+              setImageUrls(extractedImages);
+
+              // Preload images before proceeding
+              preloadImages(extractedImages, () => {
+                setImagesLoaded(true);
+              });
+            }
+          });
+        } catch (error) {
+          console.error('Error fetching the CSV file:', error);
+        }
+      };
+
+      fetchAndExtractImages();
+    }, []);
   
     
     //loop through CSV patterns
