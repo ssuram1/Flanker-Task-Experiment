@@ -138,7 +138,7 @@ const Screen2 = ({ onButtonClick}) => (
         {[...Array(5)].map((_, index) => (
           <img
             key={index}
-            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png"
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.jpg"
             alt="Face"
             style={{
               width: '100px',
@@ -270,7 +270,7 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC-${index}`} // Ensure unique keys
-            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png" // Left images
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.jpg" // Left images
             alt="Face"
             style={{
               width: '100px',
@@ -281,7 +281,7 @@ const Screen3 = ({ onButtonClick }) => (
         
         <img
           key="HC" // Ensure unique key for middle image
-          src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.png"// Middle image
+          src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.jpg"// Middle image
           alt="Middle Face"
           style={{
             width: '100px',
@@ -292,7 +292,7 @@ const Screen3 = ({ onButtonClick }) => (
         {[...Array(2)].map((_, index) => (
           <img
             key={`AC2-${index}`} // Ensure unique keys
-            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png" // Right images
+            src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.jpg" // Right images
             alt="Face"
             style={{
               width: '100px',
@@ -453,7 +453,7 @@ const Screen4 = ({ onButtonClick}) => (
           {Array(5).fill(null).map((_, index) => (
             <img
               key={index}
-              src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png"
+              src="/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.jpg"
               alt="not emotional face"
               style={{
                 width: '75px',
@@ -494,7 +494,7 @@ const Screen4 = ({ onButtonClick}) => (
           {[...Array(5)].map((_, index) => (
             <img
               key={index}
-              src={index === 2 ? "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.png" : "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.png"}
+              src={index === 2 ? "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_AC.jpg" : "/RADIATE_BMP/RADIATE_450_COLOR_BMP/WF/WF01/WF01_NC.jpg"}
               alt={index === 2 ? "emotional face" : "not emotional face"}
               style={{
                 width: '75px',
@@ -1263,7 +1263,7 @@ const FaceExperiment = ({ experiment, PID }) => {
     useEffect(() => {
       const fetchAndExtractImages = async () => {
         try {
-          const csvFile = '/flanker_schedule_f.csv';
+          const csvFile = '/flanker_schedule_f_webp.csv';
           const response = await axios.get(csvFile);
 
           Papa.parse(response.data, {
@@ -1304,7 +1304,7 @@ const FaceExperiment = ({ experiment, PID }) => {
     useEffect(() => {
       const fetchData = async () => {
         try {
-          const csvFile = '/flanker_schedule_f.csv';
+          const csvFile = '/flanker_schedule_f_webp.csv';
           console.log("Experiment:", experiment);
           const response = await axios.get(csvFile);
           console.log("Raw CSV data:", response.data);
