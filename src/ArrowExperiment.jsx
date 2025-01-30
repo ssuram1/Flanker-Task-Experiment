@@ -22,27 +22,29 @@ const Screen1 = ({ onButtonClick, experiment, continued}) => (
   >
      {continued ? ( 
       <Typography 
-        align="center" 
-        variant="h4"
-        sx={{
-          color: "white",
-          marginBottom: '5vh',
-          fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
-        }}
-      >
+      align="center" 
+      variant="h4"
+      sx={{
+        color: "white",
+        marginBottom: '5vh',
+        fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
+        fontWeight: 'bold'
+      }}
+    >
         Welcome back! < br/>
         You will now complete another round of the same task you did earlier. Please keep your index fingers on the Q and P keys and press the Q key when the MIDDLE arrow is pointed left and the P key when the MIDDLE arrow is pointing right. Please respond as quickly as possible but without making mistakes. < br/> Press the spacebar to begin.
       </Typography> ) :
      (
       <>
       <Typography 
-        align="center" 
-        variant="h4"
-        sx={{
-          color: "white",
-          marginBottom: '5vh',
-          fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
-        }}
+      align="center" 
+      variant="h4"
+      sx={{
+        color: "white",
+        marginBottom: '5vh',
+        fontSize: {xs: '1.5rem', sm: '2rem', md: '2.5rem'},
+        fontWeight: 'bold'
+      }}
       >
         Welcome! <br />
         Before beginning the experiment, please read the instructions carefully. <br />
