@@ -1323,7 +1323,7 @@ const preloadImages = async (images) => {
   let loadPromises = images.map((src) => {
     return new Promise((resolve) => {
       let img = new Image();
-      img.src = `${src}?nf_resize=fit&w=500`; // ✅ Proper template literal syntax
+      img.src = `${src}?nf_resize=fit&w=500`; 
       img.onload = () => resolve({ src, status: "success" });
       img.onerror = () => resolve({ src, status: "error" });
     });
@@ -1332,7 +1332,7 @@ const preloadImages = async (images) => {
   const results = await Promise.all(loadPromises);
   console.log("All images preloaded!", results);
 
-  return results; // ✅ Returns results after ALL images are loaded
+  return results;
 };
 
 
@@ -1379,17 +1379,15 @@ const FaceExperiment = ({ experiment, PID }) => {
   
             const extractedImages = Array.from(uniqueImages);
   
-            // ✅ Wait for images to fully preload
             const loadedImages = await preloadImages(extractedImages);
   
-            // ✅ Ensure only successfully loaded images are used
             const successfullyLoadedImages = loadedImages
               .filter((img) => img.status === "success")
               .map((img) => img.src);
   
             if (successfullyLoadedImages.length === extractedImages.length) {
               setImageUrls(successfullyLoadedImages);
-              setImagesLoaded(true); // ✅ Set to true ONLY when ALL images are loaded
+              setImagesLoaded(true); 
             } else {
               console.warn("Some images failed to load.");
             }
