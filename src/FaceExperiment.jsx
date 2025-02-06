@@ -1684,7 +1684,10 @@ const FaceExperiment = ({ experiment, PID }) => {
     useEffect(() => {
         if (screen === 11) {
             console.log("Screen reached 11, downloading responses...");
-  //           downloadResponses();
+            const jsonData = JSON.stringify(responses);
+            sendDataToREDCap(jsonData);
+            // Clear out local storage
+            localStorage.removeItem('responses');
         }
     }, [screen]);
   
@@ -1715,7 +1718,7 @@ const FaceExperiment = ({ experiment, PID }) => {
       setScreen(6);
     };
     
-  //downloads user responses
+  //downloads user responses- not used for Faces
     const downloadResponses = () => {
         if (responses.length === 0) {
             console.error("No responses to download.");
@@ -1756,10 +1759,7 @@ const FaceExperiment = ({ experiment, PID }) => {
         console.log(url);
        
         // Determine which field to use based on the experiment
-        let dataField = 'flanker_data_json';
-        if (experiment === 'F1' || experiment === 'A3') {
-            dataField = 'flanker_data_json_2';
-        }
+        let dataField = 'flanker_data_json_2';
   
         //data to be sent to REDCap API
         const body = {

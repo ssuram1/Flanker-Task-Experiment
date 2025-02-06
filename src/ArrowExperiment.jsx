@@ -1536,6 +1536,12 @@ useEffect(() => {
           if (experiment === "A2" || experiment === "A3") {
             downloadResponses();
           }
+          else {
+            const jsonData = JSON.stringify(responses);
+            sendDataToREDCap(jsonData);
+            // Clear out local storage
+            localStorage.removeItem('responses');
+          }
       }
   }, [screen]);
 
@@ -1601,14 +1607,15 @@ useEffect(() => {
       //retrieve PID from URL query string
       const userid = PID || '10';
       console.log(typeof userid)
+      var url = '';
       //REDCap API endpoint
       if(experiment === 'F1' || experiment === 'A1') {
-        const url = 'https://redcap.case.edu/api/';
+          url = 'https://redcap.case.edu/api/';
       }
       else {
-        const url = 'https://redcap.uits.iu.edu/api/';
+          url = 'https://redcap.uits.iu.edu/api/';
       }
-     
+      console.log(url);
       // Determine which field to use based on the experiment
       let dataField = 'flanker_data_json';
       if (experiment === 'F1' || experiment === 'A3') {

@@ -31,7 +31,7 @@ const App = () => {
   
 //render appropriate experiment
   if (experiment === 'F1') {
-    return <FaceExperiment />;
+    return <FaceExperiment PID = { PID } experiment = { experiment } online = { online }/>;
   }
   else if(experiment === 'A1' || experiment === 'A2' || experiment === 'A3') {
     return <ArrowExperiment PID = { PID } experiment = { experiment } online = { online } />;
