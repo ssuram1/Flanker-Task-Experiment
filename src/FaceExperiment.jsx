@@ -1717,6 +1717,7 @@ const FaceExperiment = ({ experiment, PID }) => {
     if (screen === 11) {
       console.log("Screen reached 11, downloading responses...");
       //           downloadResponses();
+      const jsonData = JSON.stringify(responses);
       sendDataToREDCap(jsonData);
       // Clear out local storage
       localStorage.removeItem('responses');
