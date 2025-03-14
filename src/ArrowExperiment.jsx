@@ -1613,7 +1613,7 @@ useEffect(() => {
           url = 'https://redcap.case.edu/api/';
       }
       else {
-          url = 'https://redcap.uits.iu.edu/api/';
+          url = 'https://redcap.uits.iu.edu/';
       }
       console.log(url);
       // Determine which field to use based on the experiment
@@ -1629,7 +1629,7 @@ useEffect(() => {
           token: (experiment === 'F1' || experiment === 'A1') 
           ? '6543B93BA07C88CFA3FD68E9692B1A87' 
           //change for A2, A3 token
-          : '0',
+          : 'A82CB9C080AD0E9FFA67F60DB828A313',
           content: 'record',
           format: 'json',
           type: 'flat',
